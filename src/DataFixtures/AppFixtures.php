@@ -23,7 +23,7 @@ class AppFixtures extends Fixture
                 'username' => 'francis',
                 'email' => 'francis@gmail.com',
                 'role' => ['ROLE_ADMIN'],
-                'password' => '12345678'
+                'password' => '12345678',
             ],
             [
                 'username' => 'Gerald',
@@ -91,7 +91,7 @@ class AppFixtures extends Fixture
             foreach ($listTask as $keyTask => $taskListed) {
                 $task = new Task;
                 $task->setCreatedAt(new \DateTime('+'.mt_rand(1,9).'days'));
-                $task->setTitle($taskListed['title']);
+                $task->setTitle($listUser[$key]['username'].' '.$taskListed['title']);
                 $task->setContent($taskListed['content']);
                 $task->setIsDone(mt_rand(0,1));
                 $task->setUser($allUser[$key]);
