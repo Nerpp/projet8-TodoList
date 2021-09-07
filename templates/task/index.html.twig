@@ -26,7 +26,9 @@
                 <td>{{ task.isDone ? 'Yes' : 'No' }}</td>
                 <td>
                     <a href="{{ path('task_show', {'id': task.id}) }}">show</a>
+                    {% if app.user == task.user %}
                     <a href="{{ path('task_edit', {'id': task.id}) }}">edit</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}

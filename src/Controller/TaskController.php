@@ -23,7 +23,7 @@ class TaskController extends AbstractController
         $user = $this->getUser();
    
         return $this->render('task/index.html.twig', [
-            'tasks' => $taskRepository->findBy(['user'=>$user->getID()]),
+            'tasks' => $taskRepository->findAll(),
         ]);
     }
 
