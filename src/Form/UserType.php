@@ -28,7 +28,6 @@ class UserType extends AbstractType
             ])
             ->add('password')
             ->add('email')
-            ->add('isVerified')
         ;
 
         // Data transformer

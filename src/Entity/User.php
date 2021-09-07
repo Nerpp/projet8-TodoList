@@ -49,11 +49,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $email;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $isVerified = false;
-
+    
     /**
      * @ORM\OneToMany(targetEntity=Task::class, mappedBy="user", orphanRemoval=true)
      */
@@ -156,18 +152,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmail(string $email): self
     {
         $this->email = $email;
-
-        return $this;
-    }
-
-    public function isVerified(): bool
-    {
-        return $this->isVerified;
-    }
-
-    public function setIsVerified(bool $isVerified): self
-    {
-        $this->isVerified = $isVerified;
 
         return $this;
     }
