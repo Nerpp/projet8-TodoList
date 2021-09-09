@@ -86,7 +86,8 @@ class TaskController extends AbstractController
      */
     public function delete(Request $request, Task $task): Response
     {
-        if ($this->getUser() === $task->getUser() && $this->isCsrfTokenValid('delete'.$task->getId(), $request->request->get('_token'))) {
+        
+        if ($this->getUser() === $task->getUser() && $this->isCsrfTokenValid('delete'.$task->getId(), $request->request->get('_token')) || in_array('ROLE_ADMIN',$this->getUser()->getRoles(), true) && $task->getUser()->getUsername() === 'Anonyme') {
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($task);
