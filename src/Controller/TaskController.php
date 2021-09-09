@@ -5,13 +5,15 @@ namespace App\Controller;
 use App\Entity\Task;
 use App\Form\TaskType;
 use App\Repository\TaskRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/task")
+ * 
  */
 class TaskController extends AbstractController
 {
@@ -29,6 +31,7 @@ class TaskController extends AbstractController
 
     /**
      * @Route("/new", name="task_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function new(Request $request): Response
     {
@@ -36,7 +39,7 @@ class TaskController extends AbstractController
         $form = $this->createForm(TaskType::class, $task);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() && $this->isGranted('ROLE_USER')) {
             $entityManager = $this->getDoctrine()->getManager();
             $task->setUser($this->getUser());
             $entityManager->persist($task);
@@ -63,16 +66,19 @@ class TaskController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="task_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function edit(Request $request, Task $task): Response
     {
         $form = $this->createForm(TaskType::class, $task);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+        if ($form->isSubmitted() && $form->isValid() ) {
 
-            return $this->redirectToRoute('task_list', [], Response::HTTP_SEE_OTHER);
+            if ($this->getUser() === $task->getUser() || $this->isGranted('ROLE_ADMIN') && $task->getUser()->getUsername() === 'Anonyme') {
+                $this->getDoctrine()->getManager()->flush();
+            }
+            return $this->redirectToRoute('task_list');
         }
 
         return $this->renderForm('task/edit.html.twig', [
@@ -83,11 +89,12 @@ class TaskController extends AbstractController
 
     /**
      * @Route("/{id}", name="task_delete", methods={"POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function delete(Request $request, Task $task): Response
     {
         
-        if ($this->getUser() === $task->getUser() && $this->isCsrfTokenValid('delete'.$task->getId(), $request->request->get('_token')) || in_array('ROLE_ADMIN',$this->getUser()->getRoles(), true) && $task->getUser()->getUsername() === 'Anonyme') {
+        if ($this->getUser() === $task->getUser() && $this->isCsrfTokenValid('delete'.$task->getId(), $request->request->get('_token')) || $this->isGranted('ROLE_ADMIN') && $task->getUser()->getUsername() === 'Anonyme') {
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($task);

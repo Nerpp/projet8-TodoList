@@ -22,7 +22,7 @@ class AppFixtures extends Fixture
             [
                 'username' => 'Anonyme',
                 'email' => 'anonyme@gmail.com',
-                'role' => ['ROLE_USER'],
+                'role' => [],
                 'password' => '12345678',
             ],
             [
@@ -87,6 +87,12 @@ class AppFixtures extends Fixture
             $user->setPassword($this->encoder->hashPassword($user,$userListed['password']));
             $user->setUsername($userListed['username']);
             $user->setRoles($userListed['role']);
+            if ($userListed['username'] === 'Anonyme') {
+                $user->setIsVerified(0);
+            }else {
+                $user->setIsVerified(1);
+            }
+           
             $manager->persist($user);
             $allUser[] = $user;
         }
