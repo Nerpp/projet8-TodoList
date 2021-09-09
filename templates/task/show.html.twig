@@ -32,7 +32,9 @@
 
     <a href="{{ path('task_list') }}">back to list</a>
 
+    {% if app.user == task.user %}
     <a href="{{ path('task_edit', {'id': task.id}) }}">edit</a>
 
     {{ include('task/_delete_form.html.twig') }}
+    {% endif %}
 {% endblock %}
