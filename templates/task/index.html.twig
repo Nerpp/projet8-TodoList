@@ -12,53 +12,51 @@
 	</div>
 
 
-   
-
-<div class="container">
-	{% for task in tasks %}
-		<div class="d-flex align-items-start pt-3">
-			<div class="col-3">
-				<div class="">
-					<strong>Utilisateur :
-					</strong>
-					{{ task.user.username }}
+	<div class="container">
+		{% for task in tasks %}
+			<div class="d-flex align-items-start pt-3">
+				<div class="col-3">
+					<div class="">
+						<strong>Utilisateur :
+						</strong>
+						{{ task.user.username }}
+					</div>
+					<div class="">
+						<strong>Tache :
+						</strong>
+						{{ task.title }}
+					</div>
+					<div class="">
+						<strong>Crée le :
+						</strong>
+						{{ task.createdAt ? task.createdAt|date('d-m-Y H:i') : '' }}
+					</div>
+					<div class="">
+						{% if task.isDone %}
+							<div class="text-success">
+								<strong>Complété :
+								</strong>Oui
+							</div>
+						{% else %}
+							<div class="text-danger">
+								<strong>Complété :
+								</strong>Non
+							</div>
+						{% endif %}
+					</div>
+					<div class="">
+						<a href="{{ path('task_show', {'id': task.id}) }}">show</a>
+						{% if (app.user == task.user) or (is_granted('ROLE_ADMIN') and task.user.username == 'Anonyme') %}
+							<a href="{{ path('task_edit', {'id': task.id}) }}">edit</a>
+						{% endif %}
+					</div>
 				</div>
 				<div class="">
-					<strong>Tache :
-					</strong>
-					{{ task.title }}
-				</div>
-				<div class="">
-					<strong>Crée le :
-					</strong>
-					{{ task.createdAt ? task.createdAt|date('d-m-Y H:i') : '' }}
-				</div>
-				<div class="">
-					{% if task.isDone %}
-						<div class="text-success">
-							<strong>Complété :
-							</strong>Oui
-						</div>
-					{% else %}
-						<div class="text-danger">
-							<strong>Complété :
-							</strong>Non
-						</div>
-					{% endif %}
-				</div>
-				<div class="">
-					<a href="{{ path('task_show', {'id': task.id}) }}">show</a>
-					{% if (app.user == task.user) or (is_granted('ROLE_ADMIN') and task.user.username == 'Anonyme') %}
-						<a href="{{ path('task_edit', {'id': task.id}) }}">edit</a>
-					{% endif %}
+					{{ task.content }}
 				</div>
 			</div>
-			<div class="">
-				{{ task.content }}
-			</div>
-		</div>
-	{% endfor %}
-</div>
+		{% endfor %}
+	</div>
 
 
 	<a href="{{ path('task_new') }}">Create new</a>
