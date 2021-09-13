@@ -30,14 +30,25 @@
         </div>
     <div>
     <div class="pt-4">
-		  {{ form_label(form.password) }}
+		  {{ form_label(form.password.first) }}
 		</div>
 		<div class="">
-		{{ form_errors(form.password)}}
+		{{ form_errors(form.password.first)}}
 		</div>
 		<div class="">
-		  {{ form_widget(form.password, {'attr': {'class': 'border_input'}}) }}
+		  {{ form_widget(form.password.first, {'attr': {'class': 'border_input'}}) }}
         </div>
     <div>
+	 <div class="pt-4">
+		  {{ form_label(form.password.second) }}
+		</div>
+		<div class="">
+		{{ form_errors(form.password.second)}}
+		</div>
+		<div class="">
+		  {{ form_widget(form.password.second, {'attr': {'class': 'border_input'}}) }}
+        </div>
+    <div>
+	
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

@@ -108,7 +108,7 @@ class AppFixtures extends Fixture
                     $task->setCreatedAt(new \DateTime('+'.mt_rand(5,19).'days'));
                 }
                 
-                $task->setTitle($listUser[$key]['username'].' '.$taskListed['title']);
+                $task->setTitle($taskListed['title']);
                 $task->setContent($taskListed['content']);
                 $task->setIsDone(mt_rand(0,1));
                 $task->setUser($allUser[$key]);

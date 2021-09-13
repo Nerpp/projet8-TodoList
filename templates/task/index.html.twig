@@ -1,46 +1,65 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Task index{% endblock %}
+{% block title %}Task index
+{% endblock %}
 
 {% block body %}
-    <h1>Task index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>CreatedAt</th>
-                <th>Title</th>
-                <th>Content</th>
-                <th>IsDone</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for task in tasks %}
+	<div class="container">
+		<div class="d-flex justify-content-center">
+			<h1>Task index</h1>
+		</div>
+	</div>
 
-        
-            <tr>
-                <td>{{ task.id }}</td>
-                <td>{{ task.createdAt ? task.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ task.title }}</td>
-                <td>{{ task.content }}</td>
-                <td>{{ task.isDone ? 'Yes' : 'No' }}</td>
-                
-                <td>
-                    <a href="{{ path('task_show', {'id': task.id}) }}">show</a>
-                    {% if (app.user == task.user) or (is_granted('ROLE_ADMIN') and task.user.username == 'Anonyme') %}
-                        <a href="{{ path('task_edit', {'id': task.id}) }}">edit</a>
-                    {% endif %}
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 
-    <a href="{{ path('task_new') }}">Create new</a>
+   
+
+<div class="container">
+	{% for task in tasks %}
+		<div class="d-flex align-items-start pt-3">
+			<div class="col-3">
+				<div class="">
+					<strong>Utilisateur :
+					</strong>
+					{{ task.user.username }}
+				</div>
+				<div class="">
+					<strong>Tache :
+					</strong>
+					{{ task.title }}
+				</div>
+				<div class="">
+					<strong>Crée le :
+					</strong>
+					{{ task.createdAt ? task.createdAt|date('d-m-Y H:i') : '' }}
+				</div>
+				<div class="">
+					{% if task.isDone %}
+						<div class="text-success">
+							<strong>Complété :
+							</strong>Oui
+						</div>
+					{% else %}
+						<div class="text-danger">
+							<strong>Complété :
+							</strong>Non
+						</div>
+					{% endif %}
+				</div>
+				<div class="">
+					<a href="{{ path('task_show', {'id': task.id}) }}">show</a>
+					{% if (app.user == task.user) or (is_granted('ROLE_ADMIN') and task.user.username == 'Anonyme') %}
+						<a href="{{ path('task_edit', {'id': task.id}) }}">edit</a>
+					{% endif %}
+				</div>
+			</div>
+			<div class="">
+				{{ task.content }}
+			</div>
+		</div>
+	{% endfor %}
+</div>
+
+
+	<a href="{{ path('task_new') }}">Create new</a>
 {% endblock %}

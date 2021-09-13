@@ -50,15 +50,15 @@ class SecurityControllerAuthenticator extends AbstractLoginFormAuthenticator
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
 
-        // dd($token->getUser()->getUsername());
-        if ($token->getUser()->getUsername() === 'Anonyme') {
-            throw new AccountExpiredException('...');
-        }
+        // // dd($token->getUser()->getUsername());
+        // if ($token->getUser()->getUsername() === 'Anonyme') {
+        //     throw new AccountExpiredException('...');
+        // }
         
-        if (!$token->getUser()->isVerified()) {
+        // if (!$token->getUser()->isVerified()) {
 
-            throw new AccountExpiredException('...');
-        }
+        //     throw new AccountExpiredException('...');
+        // }
 
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
