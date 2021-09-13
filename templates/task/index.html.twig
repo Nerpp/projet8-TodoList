@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Task index
+{% block title %}Task Ended
 {% endblock %}
 
 {% block body %}
@@ -37,12 +37,12 @@
 					<div class="">
 						{% if task.isDone %}
 							<div class="text-success">
-								<strong>Complété :
+								<strong>Terminé :
 								</strong>Oui
 							</div>
 						{% else %}
 							<div class="text-danger">
-								<strong>Complété :
+								<strong>Terminé :
 								</strong>Non
 							</div>
 						{% endif %}

@@ -18,14 +18,22 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class TaskController extends AbstractController
 {
     /**
-     * @Route("/", name="task_list", methods={"GET"})
+     * @Route("/todo", name="task_todo", methods={"GET"})
      */
-    public function index(TaskRepository $taskRepository): Response
+    public function index_todo(TaskRepository $taskRepository): Response
     {
-        $user = $this->getUser();
-   
         return $this->render('task/index.html.twig', [
-            'tasks' => $taskRepository->findAll(),
+            'tasks' => $taskRepository->findBy(['isDone'=>0])
+        ]);
+    }
+
+    /**
+     * @Route("/ended", name="task_ended", methods={"GET"})
+     */
+    public function index_ended(TaskRepository $taskRepository): Response
+    {
+        return $this->render('task/index.html.twig', [
+            'tasks' => $taskRepository->findBy(['isDone'=>1])
         ]);
     }
 
