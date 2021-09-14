@@ -43,7 +43,6 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            // dd($user);
             $user->setPassword($this->encoder->hashPassword($user,$user->getPassword()));
             $entityManager->persist($user);
             $entityManager->flush();
@@ -73,6 +72,7 @@ class UserController extends AbstractController
     public function edit(Request $request, User $user): Response
     {
         $form = $this->createForm(UserType::class, $user);
+        $form->remove('password');
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
