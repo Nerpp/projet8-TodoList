@@ -41,16 +41,14 @@
         {{ include('task/_delete_form.html.twig') }}
     </div>
     <div class="">
-        <a href="{{ path('task_list') }}">back to list</a>
+	{% if task.isDone %}
+        <a href="{{ path('task_ended') }}">back to list</a>
+		{% else %}
+		<a href="{{ path('task_todo') }}">back to list</a>
+	{% endif %}
     </div>
     </div>
     {% endif %}
 </div>
-
-
-   
-
-    
-
-   
+ 
 {% endblock %}
