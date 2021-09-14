@@ -82,11 +82,14 @@ class TaskController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid() ) {
-
+            
             if ($this->getUser() === $task->getUser() || $this->isGranted('ROLE_ADMIN') && $task->getUser()->getUsername() === 'Anonyme') {
                 $this->getDoctrine()->getManager()->flush();
             }
-            return $this->redirectToRoute('task_list');
+            if ($task->getIsDone()) {
+                return $this->redirectToRoute('task_ended');
+            }
+            return $this->redirectToRoute('task_todo');
         }
 
         return $this->renderForm('task/edit.html.twig', [
