@@ -1,54 +1,55 @@
 {{ form_start(form) }}
-    <div class="pt-4">
-		  {{ form_label(form.username) }}
-		</div>
-		<div class="">
-		{{ form_errors(form.username)}}
-		</div>
-		<div class="">
-		  {{ form_widget(form.username, {'attr': {'class': 'border_input'}}) }}
-        </div>
-    <div>
-   <div class="pt-4">
-		  {{ form_label(form.email) }}
-		</div>
-		<div class="">
-		{{ form_errors(form.email)}}
-		</div>
-		<div class="">
-		  {{ form_widget(form.email, {'attr': {'class': 'border_input'}}) }}
-        </div>
-    <div>
-    <div class="pt-4">
-		  {{ form_label(form.roles) }}
-		</div>
-		<div class="">
-		{{ form_errors(form.roles)}}
-		</div>
-		<div class="">
-		  {{ form_widget(form.roles, {'attr': {'class': 'border_input'}}) }}
-        </div>
-    <div>
-    <div class="pt-4">
-		  {{ form_label(form.password.first) }}
-		</div>
-		<div class="">
-		{{ form_errors(form.password.first)}}
-		</div>
-		<div class="">
-		  {{ form_widget(form.password.first, {'attr': {'class': 'border_input'}}) }}
-        </div>
-    <div>
-	 <div class="pt-4">
-		  {{ form_label(form.password.second) }}
-		</div>
-		<div class="">
-		{{ form_errors(form.password.second)}}
-		</div>
-		<div class="">
-		  {{ form_widget(form.password.second, {'attr': {'class': 'border_input'}}) }}
-        </div>
-    <div>
-	
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<div class="pt-2">
+	{{ form_label(form.username) }}
+</div>
+<div class="">
+	{{ form_errors(form.username)}}
+</div>
+<div class="">
+	{{ form_widget(form.username, {'attr': {'class': 'border_input'}}) }}
+</div>
+<div class="pt-2">
+	{{ form_label(form.email) }}
+</div>
+<div class="">
+	{{ form_errors(form.email)}}
+</div>
+<div class="">
+	{{ form_widget(form.email, {'attr': {'class': 'border_input'}}) }}
+</div>
+
+<div class="pt-2">
+	{{ form_label(form.roles) }}
+</div>
+<div class="">
+	{{ form_errors(form.roles)}}
+</div>
+<div class="">
+	{{ form_widget(form.roles, {'attr': {'class': 'border_input'}}) }}
+</div>
+
+<div class="pt-2">
+	{{ form_label(form.password.first) }}
+</div>
+<div class="">
+	{{ form_errors(form.password.first)}}
+</div>
+<div class="">
+	{{ form_widget(form.password.first, {'attr': {'class': 'border_input'}}) }}
+</div>
+
+<div class="pt-2">
+	{{ form_label(form.password.second) }}
+</div>
+<div class="">
+	{{ form_errors(form.password.second)}}
+</div>
+<div class="">
+	{{ form_widget(form.password.second, {'attr': {'class': 'border_input'}}) }}
+</div>
+<div class="text-center p-4">
+	<button class="btn bg-success">{{ button_label|default('Save') }}</button>
+</div>
+
 {{ form_end(form) }}
+
