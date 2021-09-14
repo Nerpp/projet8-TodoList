@@ -29,9 +29,14 @@
         <div class="container">
             <div class="row">
             {% if is_granted('ROLE_ADMIN')  %}
+            {# <div class="col-12"> #}
                 <a href="{{ path('user_new') }}" class="btn btn-primary">Créer un utilisateur</a>
                 {# {% else %}
                 <a href="{{ path('app_register') }}" class="btn btn-primary">Créer un utilisateur</a>    #}
+            {# </div> #}
+            {# <div class="col-12"> #}
+                <a href="{{ path('user_index') }}" class="btn btn-warning">liste des utilisateurs</a>
+            {# </div> #}
             {% endif %}
 
                 {% if app.user %}

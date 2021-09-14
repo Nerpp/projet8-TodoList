@@ -1,43 +1,40 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User index{% endblock %}
+{% block title %}User index
+{% endblock %}
+
+
+{% block header_title %}
+	<div class="container">
+		<div class="d-flex justify-content-center">
+			<h1>Liste des Utilisateurs</h1>
+		</div>
+	</div>
+{% endblock %}
 
 {% block body %}
-    <h1>User index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Username</th>
-                <th>Roles</th>
-                <th>Password</th>
-                <th>Email</th>
-                <th>IsVerified</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for user in users %}
-
-            <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.username }}</td>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-                <td>{{ user.password }}</td>
-                <td>{{ user.email }}</td>
-                <td>
-                    <a href="{{ path('user_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('user_new') }}">Create new</a>
+	<div class="container">
+		<div class="">
+			<a href="{{ path('user_new') }}">Create new</a>
+		</div>
+	</div>
+	<div class="container pt-3">
+		<div class="d-flex flex-row flex-wrap justify-content-around">
+			{% for user in users %}
+            <div class="p-2">
+				<div class="card" style="width: 18rem;">
+					<div class="card-body">
+						<h5 class="card-title">{{ user.username }}</h5>
+						<h6 class="card-subtitle mb-2 text-muted">{{ user.roles ? user.roles|json_encode : '' }}</h6>
+						<p class="card-text">{{ user.email }}</p>
+						<a href="{{ path('user_show', {'id': user.id}) }}" class="card-link">show</a>
+						<a href="{{ path('user_edit', {'id': user.id}) }}" class="card-link">edit</a>
+					</div>
+				</div>
+            </div>
+			{% endfor %}
+		</div>
+	</div>
 {% endblock %}
+

@@ -54,11 +54,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $task;
 
-     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $isVerified = false;
-
+    
     public function __construct()
     {
         $this->task = new ArrayCollection();
@@ -190,15 +186,4 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function isVerified(): bool
-    {
-        return $this->isVerified;
-    }
-
-    public function setIsVerified(bool $isVerified): self
-    {
-        $this->isVerified = $isVerified;
-
-        return $this;
-    }
 }
