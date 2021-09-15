@@ -59,6 +59,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $isVerified = false;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $token_validation;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $askedAt;
+
     
     public function __construct()
     {
@@ -199,6 +209,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getTokenValidation(): ?string
+    {
+        return $this->token_validation;
+    }
+
+    public function setTokenValidation(?string $token_validation): self
+    {
+        $this->token_validation = $token_validation;
+
+        return $this;
+    }
+
+    public function getAskedAt(): ?\DateTimeInterface
+    {
+        return $this->askedAt;
+    }
+
+    public function setAskedAt(?\DateTimeInterface $askedAt): self
+    {
+        $this->askedAt = $askedAt;
 
         return $this;
     }
