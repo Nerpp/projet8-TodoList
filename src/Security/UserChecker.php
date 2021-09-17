@@ -22,10 +22,13 @@ class UserChecker implements UserCheckerInterface
         if (!$user instanceof AppUser) {
             return;
         }
+        if ($user->getUsername() === 'Anonyme') {
+            throw new CustomUserMessageAccountStatusException('Je ne comprend pas la question.');
+        }
 
-        if (!$user->isVerified() || $user->getUsername() === 'Anonyme') {
+        if (!$user->isVerified() ) {
             // the message passed to this exception is meant to be displayed to the user
-            throw new CustomUserMessageAccountStatusException('Your user account is not verified.');
+            throw new CustomUserMessageAccountStatusException('Votre compte n\'a pas été verifié.');
         }
       
     }
