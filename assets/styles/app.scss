@@ -1,3 +1,6 @@
+@import "custom";
+@import "~bootstrap/scss/bootstrap";
+
 /*!
  * Start Bootstrap - Shop Homepage (http://startbootstrap.com/)
  * Copyright 2013-2016 Start Bootstrap
@@ -6,6 +9,7 @@
 
  body {
     padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+
 }
 
 .slide-image {
@@ -51,4 +55,9 @@
 
 footer {
     margin: 50px 0;
+}
+
+.content_input {
+    width: 100%;
+    height: 100%;
 }

@@ -1,21 +1,80 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Register
+{% endblock %}
+
+{% block header_title %}
+	<div class="container">
+		<div class="d-flex justify-content-center">
+			<h1>Création Utilisateur</h1>
+		</div>
+	</div>
+{% endblock %}
 
 {% block body %}
-    {% for flashError in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
-    {% endfor %}
+	{% for flashError in app.flashes('verify_email_error') %}
+		<div class="alert alert-danger" role="alert">{{ flashError }}</div>
+	{% endfor %}
 
-    <h1>Register</h1>
+	<div class="container">
+		<div class="d-flex flex-column align-items-center">
+			{{ form_start(registrationForm) }}
+			<div class="pt-2">
+				{{ form_label(registrationForm.username) }}
+			</div>
+			<div class="">
+				{{ form_errors(registrationForm.username)}}
+			</div>
+			<div class="">
+				{{ form_widget(registrationForm.username, {'attr': {'class': 'border_input'}}) }}
+			</div>
+			<div class="pt-2">
+				{{ form_label(registrationForm.email) }}
+			</div>
+			<div class="">
+				{{ form_errors(registrationForm.email)}}
+			</div>
+			<div class="">
+				{{ form_widget(registrationForm.email, {'attr': {'class': 'border_input'}}) }}
+			</div>
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.username) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+			<div class="pt-2">
+				{{ form_label(registrationForm.roles) }}
+			</div>
+			<div class="">
+				{{ form_errors(registrationForm.roles)}}
+			</div>
+			<div class="">
+				{{ form_widget(registrationForm.roles, {'attr': {'class': 'border_input'}}) }}
+			</div>
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+			<div class="pt-2">
+				{{ form_label(registrationForm.password.first) }}
+			</div>
+			<div class="">
+				{{ form_errors(registrationForm.password.first)}}
+			</div>
+			<div class="">
+				{{ form_widget(registrationForm.password.first, {'attr': {'class': 'border_input'}}) }}
+			</div>
+
+			<div class="pt-2">
+				{{ form_label(registrationForm.password.second) }}
+			</div>
+			<div class="">
+				{{ form_errors(registrationForm.password.second)}}
+			</div>
+			<div class="">
+				{{ form_widget(registrationForm.password.second, {'attr': {'class': 'border_input'}}) }}
+			</div>
+			<div class="text-center p-4">
+				<button class="btn bg-success">{{ button_label|default('Enregistrement') }}</button>
+			</div>
+
+			{{ form_end(registrationForm) }}
+
+		</div>
+	</div>
+
 {% endblock %}
+
