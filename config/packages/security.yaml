@@ -24,6 +24,10 @@ security:
             custom_authenticator: App\Security\SecurityControllerAuthenticator
             pattern: ^/
             user_checker: App\Security\UserChecker
+            # configure the maximum login attempts in a custom period of time
+            login_throttling:
+                max_attempts: 3
+                interval: '15 minutes'
             logout:
                 path: app_logout
                 # where to redirect after logout
