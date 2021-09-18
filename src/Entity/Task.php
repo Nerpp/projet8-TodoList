@@ -5,6 +5,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\TaskRepository;
+use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -28,6 +29,11 @@ class Task
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Vous devez saisir un titre.")
+      * @Assert\Regex(
+     *      pattern="/[#?,:;.$¤{}()`_@&~]/i",
+     *      match=false,
+     *      message="Le titre ne doit pas contenir de caractéres spéciaux"
+     * )
      */
     private $title;
 
