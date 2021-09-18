@@ -17,64 +17,62 @@
 	{% endfor %}
 
 	<div class="container">
-		<div class="d-flex flex-column align-items-center">
+		<div class="row">
 			{{ form_start(registrationForm) }}
-			<div class="pt-2">
-				{{ form_label(registrationForm.username) }}
-			</div>
-			<div class="">
-				{{ form_errors(registrationForm.username)}}
-			</div>
-			<div class="">
-				{{ form_widget(registrationForm.username, {'attr': {'class': 'border_input'}}) }}
-			</div>
-			<div class="pt-2">
-				{{ form_label(registrationForm.email) }}
-			</div>
-			<div class="">
-				{{ form_errors(registrationForm.email)}}
-			</div>
-			<div class="">
-				{{ form_widget(registrationForm.email, {'attr': {'class': 'border_input'}}) }}
-			</div>
+			<div class="d-flex flex-column align-items-center">
+				<div class="col-8 pt-2">
+					{{ form_label(registrationForm.username) }}
+				</div>
+				<div class="col-8 text-danger">
+					{{ form_errors(registrationForm.username)}}
+				</div>
+				<div class="col-8">
+					{{ form_widget(registrationForm.username, {'attr': {'class': 'form-control'}}) }}
+				</div>
+				<div class="col-8 pt-2">
+					{{ form_label(registrationForm.email) }}
+				</div>
+				<div class="col-8 text-danger">
+					{{ form_errors(registrationForm.email)}}
+				</div>
+				<div class="col-8">
+					{{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+				</div>
 
-			<div class="pt-2">
-				{{ form_label(registrationForm.roles) }}
-			</div>
-			<div class="">
-				{{ form_errors(registrationForm.roles)}}
-			</div>
-			<div class="">
-				{{ form_widget(registrationForm.roles, {'attr': {'class': 'border_input'}}) }}
-			</div>
+				<div class="col-8 pt-2">
+					{{ form_label(registrationForm.roles) }}
+				</div>
+				<div class="col-8 text-danger">
+					{{ form_errors(registrationForm.roles)}}
+				</div>
+				<div class="col-8">
+					{{ form_widget(registrationForm.roles, {'attr': {'class': 'form-control'}}) }}
+				</div>
 
-			<div class="pt-2">
-				{{ form_label(registrationForm.password.first) }}
-			</div>
-			<div class="">
-				{{ form_errors(registrationForm.password.first)}}
-			</div>
-			<div class="">
-				{{ form_widget(registrationForm.password.first, {'attr': {'class': 'border_input'}}) }}
-			</div>
+				<div class="col-8 pt-2">
+					{{ form_label(registrationForm.password.first) }}
+				</div>
+				<div class="col-8 text-danger">
+					{{ form_errors(registrationForm.password.first)}}
+				</div>
+				<div class="col-8">
+					{{ form_widget(registrationForm.password.first, {'attr': {'class': 'form-control'}}) }}
+				</div>
 
-			<div class="pt-2">
-				{{ form_label(registrationForm.password.second) }}
+				<div class="col-8 pt-2">
+					{{ form_label(registrationForm.password.second) }}
+				</div>
+				<div class="col-8 text-danger">
+					{{ form_errors(registrationForm.password.first)}}
+				</div>
+				<div class="col-8">
+					{{ form_widget(registrationForm.password.second, {'attr': {'class': 'form-control'}}) }}
+				</div>
+				<div class="text-center p-4">
+					<button class="btn bg-success">{{ button_label|default('Enregistrement') }}</button>
+				</div>
 			</div>
-			<div class="">
-				{{ form_errors(registrationForm.password.second)}}
-			</div>
-			<div class="">
-				{{ form_widget(registrationForm.password.second, {'attr': {'class': 'border_input'}}) }}
-			</div>
-			<div class="text-center p-4">
-				<button class="btn bg-success">{{ button_label|default('Enregistrement') }}</button>
-			</div>
-
 			{{ form_end(registrationForm) }}
-
 		</div>
 	</div>
-
 {% endblock %}
-

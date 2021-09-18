@@ -7,19 +7,19 @@
 	<div class="container">
 		<div class="d-flex justify-content-center">
 			{% if app.request.pathinfo == "/task/ended" %}
-				<h1>Tache terminé</h1>
+				<h1>Tâche terminé</h1>
 			{% else %}
-				<h1>Tache non terminé</h1>
+				<h1>Tâche non terminé</h1>
 			{% endif %}
-		</div>
-		<div class="d-flex justify-content-end">
-			<a href="{{ path('task_new') }}">Create new</a>
 		</div>
 	</div>
 {% endblock %}
 
 {% block body %}
 	<div class="container">
+		<div class="d-flex justify-content-end">
+			<a href="{{ path('task_new') }}">Create new</a>
+		</div>
 		{% for task in tasks %}
 			<div class="d-flex align-items-start pt-3">
 				<div class="col-3">
@@ -52,9 +52,9 @@
 						{% endif %}
 					</div>
 					<div class="">
-						<a href="{{ path('task_show', {'id': task.id}) }}">show</a>
+						<a href="{{ path('task_show', {'id': task.id}) }}">Afficher</a>
 						{% if (app.user == task.user) or (is_granted('ROLE_ADMIN') and task.user.username == 'Anonyme') %}
-							<a href="{{ path('task_edit', {'id': task.id}) }}">edit</a>
+							<a href="{{ path('task_edit', {'id': task.id}) }}">Editer</a>
 						{% endif %}
 					</div>
 				</div>
@@ -64,6 +64,6 @@
 			</div>
 		{% endfor %}
 	</div>
-
 {% endblock %}
+
 

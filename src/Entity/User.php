@@ -30,7 +30,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank(message="Vous devez saisir un nom d'utilisateur.")
      * @Assert\Regex(
-     *      pattern="/[#?,;.¤{}()`_@&~]/i",
+     *      pattern="/[#?,:;.$¤{}()`_@&~]/i",
      *      match=false,
      *      message="Nom d'utilisateur ne doit pas contenir de caractéres spéciaux"
      * )
