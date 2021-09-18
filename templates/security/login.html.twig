@@ -3,24 +3,38 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
-
-    <label for="inputUsername">Username</label>
-    <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
-
- <a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié</a>
+	<form method="post">
+		<div class="d-flex flex-column align-items-center">
+			<div class="">
+				{% if error %}
+					<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+				{% endif %}
+			</div>
+			<div class="col-8">
+				<label for="inputUsername">Username</label>
+				<input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus>
+			</div>
+			<div class="col-8">
+				<label for="inputPassword">Password</label>
+				<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+			</div>
+			<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+				<div class="col-8 pt-3">
+					<button class="btn btn-lg btn-primary" type="submit">
+						Sign in
+					</button>
+				</div>
+				<div class="col-8 d-flex justify-content-end">
+					<a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié</a>
+				</div>
+		</div>
+	</form>
 {% endblock %}
+
+
+
+
+
+
+
+
