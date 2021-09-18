@@ -14,14 +14,14 @@
 {% block body %}
 	<div class="container">
 		<div class="d-flex flex-row justify-content-center">
-			{{ include('user/_formEdit.html.twig', {'button_label': 'Update'}) }}
+			{{ include('user/_formEdit.html.twig', {'button_label': 'Mettre à jour'}) }}
 		</div>
 	</div>
 
 <div class="container">
 	<div class="d-flex flex-row justify-content-xl-around">
 		<div class="">
-			<a href="{{ path('user_index') }}">back to list</a>
+			<a href="{{ path('user_index') }}">Retour à l'index Utilisateur</a>
 		</div>
 		<div class="bg-warning">
 			{{ include('user/_delete_form.html.twig') }}

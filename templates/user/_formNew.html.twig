@@ -1,59 +1,57 @@
 <div class="container">
-	<div class="d-flex flex-column align-items-center">
+	<div class="row">
 		{{ form_start(form) }}
-		<div class="pt-2">
-			{{ form_label(form.username) }}
+		<div class="d-flex flex-column align-items-center">
+			<div class="col-8 pt-2">
+				{{ form_label(form.username, 'Nom utilisateur') }}
+			</div>
+			<div class="col-8 text-danger">
+				{{ form_errors(form.username)}}
+			</div>
+			<div class="col-8">
+				{{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
+			</div>
+			<div class="col-8 pt-2">
+				{{ form_label(form.email) }}
+			</div>
+			<div class="col-8 text-danger">
+				{{ form_errors(form.email)}}
+			</div>
+			<div class="col-8">
+				{{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+			</div>
+			<div class="col-8 pt-2">
+				{{ form_label(form.roles) }}
+			</div>
+			<div class="col-8">
+				{{ form_errors(form.roles)}}
+			</div>
+			<div class="col-8">
+				{{ form_widget(form.roles, {'attr': {'class': 'form-control'}}) }}
+			</div>
+			<div class="col-8 pt-2">
+				{{ form_label(form.password.first, 'Mot de passse') }}
+			</div>
+			<div class="col-8 text-danger">
+				{{ form_errors(form.password.first)}}
+			</div>
+			<div class="col-8">
+				{{ form_widget(form.password.first, {'attr': {'class': 'form-control'}}) }}
+			</div>
+			<div class="col-8 pt-2">
+				{{ form_label(form.password.second,'Confirmer votre mot de passe') }}
+			</div>
+			<div class="col-8 text-danger">
+				{{ form_errors(form.password.first)}}
+			</div>
+			<div class="col-8">
+				{{ form_widget(form.password.second, {'attr': {'class': 'form-control'}}) }}
+			</div>
+			<div class="text-center p-4">
+				<button class="btn bg-success">{{ button_label|default('Enregistrer') }}</button>
+			</div>
 		</div>
-		<div class="">
-			{{ form_errors(form.username)}}
-		</div>
-		<div class="">
-			{{ form_widget(form.username, {'attr': {'class': 'border_input'}}) }}
-		</div>
-		<div class="pt-2">
-			{{ form_label(form.email) }}
-		</div>
-		<div class="">
-			{{ form_errors(form.email)}}
-		</div>
-		<div class="">
-			{{ form_widget(form.email, {'attr': {'class': 'border_input'}}) }}
-		</div>
-
-		<div class="pt-2">
-			{{ form_label(form.roles) }}
-		</div>
-		<div class="">
-			{{ form_errors(form.roles)}}
-		</div>
-		<div class="">
-			{{ form_widget(form.roles, {'attr': {'class': 'border_input'}}) }}
-		</div>
-
-		<div class="pt-2">
-			{{ form_label(form.password.first) }}
-		</div>
-		<div class="">
-			{{ form_errors(form.password.first)}}
-		</div>
-		<div class="">
-			{{ form_widget(form.password.first, {'attr': {'class': 'border_input'}}) }}
-		</div>
-
-		<div class="pt-2">
-			{{ form_label(form.password.second) }}
-		</div>
-		<div class="">
-			{{ form_errors(form.password.second)}}
-		</div>
-		<div class="">
-			{{ form_widget(form.password.second, {'attr': {'class': 'border_input'}}) }}
-		</div>
-		<div class="text-center p-4">
-			<button class="btn bg-success">{{ button_label|default('Save') }}</button>
-		</div>
-
 		{{ form_end(form) }}
-
 	</div>
 </div>
+

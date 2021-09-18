@@ -7,9 +7,10 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Length;
-
 use Symfony\Component\Validator\Constraints\NotBlank;
+
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -19,7 +20,11 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username')
+            ->add('username',TextType::class,[
+                'attr' => [
+                'placeholder' => 'Nom d\'affichage de l\'utilisateur'
+                ]
+            ])
             ->add('roles',ChoiceType::class,[
                 'required' => true,
                 'multiple' => false,
@@ -35,24 +40,40 @@ class UserType extends AbstractType
                 // this is read and encoded in the controller
                 'type' => PasswordType::class,
                 'empty_data' => "",
-                'invalid_message' => 'The password fields must match.',
+                'invalid_message' => 'La confirmation du mot de passe doit être identique à sa confirmation.',
                 'options' => ['attr' => ['class' => 'password-field']],
                 'required' => true,
-                'first_options'  => ['label' => 'Password'],
-                'second_options' => ['label' => 'Repeat Password'],
+                'first_options'  => [
+                    'label' => 'Password',
+                    'attr' => [
+                        'placeholder' => 'Le mot de passe doit être de 8 caractéres min avec des caractéres spéciaux'
+                    ],
+                ],
+                'second_options' => [
+                    'label' => 'Repeat Password',
+                    'attr' => [
+                        'autocomplete' => 'new-password',
+                        'placeholder' => 'Le mot de passe doit être de 8 caractéres min avec des caractéres spéciaux'
+
+                    ],
+                ],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => 'Entrer un mot de passe s\'il vous plait',
                     ]),
                     new Length([
                         'min' => 8,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'minMessage' => 'Votre mot de passe doit contenir {{ limit }} caractéres minimum',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
                 ],
             ])
-            ->add('email')
+            ->add('email',TextType::class,[
+                'attr' => [
+                'placeholder' => 'email@exemple.com'
+                ]
+            ])
         ;
 
         // Data transformer

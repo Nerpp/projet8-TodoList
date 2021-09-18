@@ -2,13 +2,13 @@
 	<div class="d-flex flex-column align-items-center">
 		{{ form_start(form) }}
 		<div class="pt-2">
-			{{ form_label(form.username) }}
+			{{ form_label(form.username,'Nom Utilisateur') }}
 		</div>
 		<div class="">
 			{{ form_errors(form.username)}}
 		</div>
 		<div class="">
-			{{ form_widget(form.username, {'attr': {'class': 'border_input'}}) }}
+			{{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
 		</div>
 		<div class="pt-2">
 			{{ form_label(form.email) }}
@@ -17,7 +17,7 @@
 			{{ form_errors(form.email)}}
 		</div>
 		<div class="">
-			{{ form_widget(form.email, {'attr': {'class': 'border_input'}}) }}
+			{{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
 		</div>
 
 		<div class="pt-2">
@@ -27,13 +27,13 @@
 			{{ form_errors(form.roles)}}
 		</div>
 		<div class="">
-			{{ form_widget(form.roles, {'attr': {'class': 'border_input'}}) }}
+			{{ form_widget(form.roles, {'attr': {'class': 'form-control'}}) }}
 		</div>
         
         
 
 		<div class="text-center p-4">
-			<button class="btn bg-success">{{ button_label|default('Save') }}</button>
+			<button class="btn bg-success">{{ button_label|default('Mettre à jour') }}</button>
 		</div>
 
 		{{ form_end(form) }}
