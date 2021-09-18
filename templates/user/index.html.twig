@@ -16,7 +16,7 @@
 
 	<div class="container">
 		<div class="">
-			<a href="{{ path('user_new') }}">Create new</a>
+			<a href="{{ path('user_new') }}">Créer nouvel utilisateur</a>
 		</div>
 	</div>
 	<div class="container pt-3">
@@ -27,8 +27,8 @@
 					<div class="card-body">
 						<h5 class="card-title">{{ user.username }}</h5>
 						<p class="card-text">{{ user.email }}</p>
-						<a href="{{ path('user_show', {'id': user.id}) }}" class="card-link">show</a>
-						<a href="{{ path('user_edit', {'id': user.id}) }}" class="card-link">edit</a>
+						<a href="{{ path('user_show', {'id': user.id}) }}" class="card-link">Afficher</a>
+						<a href="{{ path('user_edit', {'id': user.id}) }}" class="card-link">Editer</a>
 					</div>
 				</div>
             </div>
