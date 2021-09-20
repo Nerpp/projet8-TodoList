@@ -20,35 +20,30 @@ class AppFixtures extends Fixture
         
         $listUser = [
             [
-                'username' => 'Anonyme',
                 'displayName' => 'Anonyme',
                 'email' => 'anonyme@gmail.com',
                 'role' => [],
                 'password' => '12345678',
             ],
             [
-                'username' => 'francis',
                 'displayName' => 'Francis',
                 'email' => 'francis@gmail.com',
                 'role' => ['ROLE_ADMIN'],
                 'password' => '12345678',
             ],
             [
-                'username' => 'Gerald',
                 'displayName' => 'Gerald',
                 'email' => 'gerald@gmail.com',
                 'role' => ['ROLE_USER'],
                 'password' => '12345678'
             ],
             [
-                'username' => 'Monica',
                 'displayName' => 'Monica',
                 'email' => 'monica@free.fr',
                 'role' => ['ROLE_USER'],
                 'password' => '12345678'
             ],
             [
-                'username' => 'Erica',
                 'displayName' => 'Erica',
                 'email' => 'erica@gmail.com',
                 'role' => ['ROLE_USER'],
@@ -90,10 +85,9 @@ class AppFixtures extends Fixture
             $user = new User();
             $user->setEmail($userListed['email']);
             $user->setPassword($this->encoder->hashPassword($user,$userListed['password']));
-            $user->setUsername($userListed['username']);
             $user->setDisplayName($userListed['displayName']);
             $user->setRoles($userListed['role']);
-            if ($userListed['username'] === 'Anonyme') {
+            if ($userListed['displayName'] === 'Anonyme') {
                 $user->setIsVerified(0);
             }else {
                 $user->setIsVerified(1);
