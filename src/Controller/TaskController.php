@@ -19,6 +19,7 @@ class TaskController extends AbstractController
 {
     /**
      * @Route("/todo", name="task_todo", methods={"GET"})
+     * @IsGranted("ROLE_USER")
      */
     public function index_todo(TaskRepository $taskRepository): Response
     {
@@ -29,6 +30,7 @@ class TaskController extends AbstractController
 
     /**
      * @Route("/ended", name="task_ended", methods={"GET"})
+     * @IsGranted("ROLE_USER")
      */
     public function index_ended(TaskRepository $taskRepository): Response
     {
@@ -53,6 +55,7 @@ class TaskController extends AbstractController
             $entityManager->persist($task);
             $entityManager->flush();
 
+            $this->addFlash('success', 'La tâche à bien été crée');
             return $this->redirectToRoute('task_list', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -64,6 +67,7 @@ class TaskController extends AbstractController
 
     /**
      * @Route("/{id}", name="task_show", methods={"GET"})
+     * @IsGranted("ROLE_USER")
      */
     public function show(Task $task): Response
     {
@@ -111,6 +115,7 @@ class TaskController extends AbstractController
             $entityManager->remove($task);
             $entityManager->flush();
 
+            $this->addFlash('success', 'La tâche à bien été supprimé');
         }
 
         return $this->redirectToRoute('task_list', [], Response::HTTP_SEE_OTHER);

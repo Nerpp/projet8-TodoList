@@ -5,36 +5,28 @@
 {% block body %}
 	<form method="post">
 		<div class="d-flex flex-column align-items-center">
-			<div class="">
+			<div class="col-8">
 				{% if error %}
 					<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 				{% endif %}
 			</div>
 			<div class="col-8">
-				<label for="inputUsername">Username</label>
+				<label for="inputUsername">Nom d'affichage</label>
 				<input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus>
 			</div>
 			<div class="col-8">
-				<label for="inputPassword">Password</label>
+				<label for="inputPassword">Mot de passe</label>
 				<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 			</div>
 			<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-				<div class="col-8 pt-3">
-					<button class="btn btn-lg btn-primary" type="submit">
-						Sign in
-					</button>
-				</div>
-				<div class="col-8 d-flex justify-content-end">
-					<a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié</a>
-				</div>
+			<div class="col-8 pt-3">
+				<button class="btn btn-lg btn-primary" type="submit">
+					Sign in
+				</button>
+			</div>
+			<div class="col-8 d-flex justify-content-end">
+				<a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié</a>
+			</div>
 		</div>
 	</form>
 {% endblock %}
-
-
-
-
-
-
-
-
