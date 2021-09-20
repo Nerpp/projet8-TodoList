@@ -15,7 +15,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @UniqueEntity(fields={"username"}, message="There is already an account with this username")
+ * @UniqueEntity(fields={"displayName"}, message="Un utilisateur utilise deja ce nom d'affichage")
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -26,17 +26,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=180, unique=true)
-     * @Assert\NotBlank(message="Vous devez saisir un nom d'utilisateur.")
-     * @Assert\Regex(
-     *      pattern="/[#?,:;.$¤{}()`_@&~]/i",
-     *      match=false,
-     *      message="Nom d'utilisateur ne doit pas contenir de caractéres spéciaux"
-     * )
-     */
-    private $username;
-
+  
     /**
      * @ORM\Column(type="json")
      */
@@ -79,6 +69,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $askedAt;
 
+    /**
+     * @ORM\Column(type="string", length=45, unique=true)
+     * @Assert\NotBlank(message="Vous devez saisir un nom d'utilisateur.")
+     * @Assert\Regex(
+     *      pattern="/[#?,:;.$¤{}()`_@&~]/i",
+     *      match=false,
+     *      message="Nom d'utilisateur ne doit pas contenir de caractéres spéciaux"
+     * )
+     */
+    private $displayName;
+
     
     public function __construct()
     {
@@ -88,21 +89,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    /**
-     * @deprecated since Symfony 5.3, use getUserIdentifier instead
-     */
-    public function getUsername(): string
-    {
-        return (string) $this->username;
-    }
-
-    public function setUsername(string $username): self
-    {
-        $this->username = $username;
-
-        return $this;
     }
 
     /**
@@ -243,6 +229,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAskedAt(?\DateTimeInterface $askedAt): self
     {
         $this->askedAt = $askedAt;
+
+        return $this;
+    }
+
+    public function getDisplayName(): ?string
+    {
+        return $this->displayName;
+    }
+
+    public function setDisplayName(string $displayName): self
+    {
+        $this->displayName = $displayName;
 
         return $this;
     }

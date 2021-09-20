@@ -22,7 +22,7 @@ class RegistrationFormType extends AbstractType
     {
         
         $builder
-        ->add('username',TextType::class,[
+        ->add('displayName',TextType::class,[
             'attr' => [
             'placeholder' => 'Nom d\'affichage de l\'utilisateur'
             ]

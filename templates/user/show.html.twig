@@ -16,7 +16,7 @@
 	<div class="container">
 		<div class="d-flex flex-column align-items-center">
 			<div class="">
-				<h1>{{ user.username }}</h1>
+				<h1>{{ user.displayName }}</h1>
 			</div>
 			<div class="">
 				{{ user.roles ? user.roles|json_encode : '' }}

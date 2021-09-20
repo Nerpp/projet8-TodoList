@@ -22,7 +22,7 @@ class UserChecker implements UserCheckerInterface
         if (!$user instanceof AppUser) {
             return;
         }
-        if ($user->getUsername() === 'Anonyme') {
+        if ($user->getEmail() === 'anonyme@gmail.com') {
             throw new CustomUserMessageAccountStatusException('Je ne comprend pas la question.');
         }
 

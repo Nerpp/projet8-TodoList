@@ -17,7 +17,7 @@
 	</div>
 	<div class="">
 		Auteur :
-		{{ task.user.username }}
+		{{ task.user.displayName }}
 	</div>
 	<div class="">
 		Crée le :
@@ -39,7 +39,7 @@
 	<div class="d-flex justify-content-center p-4">
 		{{ task.content }}
 	</div>
-    {% if (app.user == task.user) or (is_granted('ROLE_ADMIN') and task.user.username == 'Anonyme')  %}
+    {% if (app.user == task.user) or (is_granted('ROLE_ADMIN') and task.user.displayName == 'Anonyme')  %}
     <div class="d-flex justify-content-around">
     <div class="">
        <a href="{{ path('task_edit', {'id': task.id}) }}">éditer</a>

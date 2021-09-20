@@ -66,7 +66,7 @@ class RegistrationController extends AbstractController
                 ->htmlTemplate('registration/confirmation_email.html.twig')
                 ->context([
                     'expiration_date' => $time,
-                    'username' => $form->get('username')->getData(),
+                    'displayName' => $form->get('displayName')->getData(),
                     'hash' => $hash,
                 ]);
 

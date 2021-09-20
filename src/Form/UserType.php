@@ -20,7 +20,7 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username',TextType::class,[
+            ->add('displayName',TextType::class,[
                 'attr' => [
                 'placeholder' => 'Nom d\'affichage de l\'utilisateur'
                 ]

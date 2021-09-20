@@ -26,7 +26,7 @@
 					<div class="">
 						<strong>Utilisateur :
 						</strong>
-						{{ task.user.username }}
+						{{ task.user.displayName }}
 					</div>
 					<div class="">
 						<strong>Tache :
@@ -53,7 +53,7 @@
 					</div>
 					<div class="">
 						<a href="{{ path('task_show', {'id': task.id}) }}">Afficher</a>
-						{% if (app.user == task.user) or (is_granted('ROLE_ADMIN') and task.user.username == 'Anonyme') %}
+						{% if (app.user == task.user) or (is_granted('ROLE_ADMIN') and task.user.displayName == 'Anonyme') %}
 							<a href="{{ path('task_edit', {'id': task.id}) }}">Editer</a>
 						{% endif %}
 					</div>

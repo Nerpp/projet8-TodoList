@@ -21,13 +21,13 @@
 			{{ form_start(registrationForm) }}
 			<div class="d-flex flex-column align-items-center">
 				<div class="col-8 pt-2">
-					{{ form_label(registrationForm.username) }}
+					{{ form_label(registrationForm.displayName) }}
 				</div>
 				<div class="col-8 text-danger">
-					{{ form_errors(registrationForm.username)}}
+					{{ form_errors(registrationForm.displayName)}}
 				</div>
 				<div class="col-8">
-					{{ form_widget(registrationForm.username, {'attr': {'class': 'form-control'}}) }}
+					{{ form_widget(registrationForm.displayName, {'attr': {'class': 'form-control'}}) }}
 				</div>
 				<div class="col-8 pt-2">
 					{{ form_label(registrationForm.email) }}
