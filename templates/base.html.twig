@@ -34,7 +34,6 @@
                 {% elseif not app.user %}
                 <a href="{{ path('app_register') }}" class="btn btn-primary">Créer un utilisateur</a> 
             {% endif %}
-
                 {% if app.user %}
                 <a href="{{ path('app_logout') }}" class="pull-right btn btn-danger">Se déconnecter</a>
                 {% endif %}
@@ -45,7 +44,7 @@
             </div>
 
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-12">
                     {% for flash_message in app.session.flashBag.get('success') %}
                         <div class="alert alert-success" role="alert">
                             <strong>Superbe !</strong> {{ flash_message }}
@@ -57,7 +56,7 @@
                             <strong>Oops !</strong> {{ flash_message }}
                         </div>
                     {% endfor %}
-
+                    
                     {% block header_title %}{% endblock %}
                     {% block header_img %}<img class="slide-image" src="{{ asset('img/todolist_homepage.jpg') }}" alt="todo list">{% endblock %}
                 </div>
