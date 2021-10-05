@@ -21,7 +21,7 @@
 			{{ form_start(registrationForm) }}
 			<div class="d-flex flex-column align-items-center">
 				<div class="col-8 pt-2">
-					{{ form_label(registrationForm.displayName) }}
+					{{ form_label(registrationForm.displayName,'Nom d\'affichage') }}
 				</div>
 				<div class="col-8 text-danger">
 					{{ form_errors(registrationForm.displayName)}}
@@ -40,7 +40,7 @@
 				</div>
 
 				<div class="col-8 pt-2">
-					{{ form_label(registrationForm.roles) }}
+					{{ form_label(registrationForm.roles,'Choisissez votre Role') }}
 				</div>
 				<div class="col-8 text-danger">
 					{{ form_errors(registrationForm.roles)}}
@@ -50,7 +50,7 @@
 				</div>
 
 				<div class="col-8 pt-2">
-					{{ form_label(registrationForm.password.first) }}
+					{{ form_label(registrationForm.password.first,'Mot de passe') }}
 				</div>
 				<div class="col-8 text-danger">
 					{{ form_errors(registrationForm.password.first)}}
@@ -60,7 +60,7 @@
 				</div>
 
 				<div class="col-8 pt-2">
-					{{ form_label(registrationForm.password.second) }}
+					{{ form_label(registrationForm.password.second,'Confirmation de votre mot de passe') }}
 				</div>
 				<div class="col-8 text-danger">
 					{{ form_errors(registrationForm.password.first)}}
