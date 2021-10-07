@@ -87,7 +87,7 @@ class TaskController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid() ) {
             
-            if ($this->getUser() === $task->getUser() || $this->isGranted('ROLE_ADMIN') && $task->getUser()->getDisplayName() === 'Anonyme') {
+            if ($this->getUser() === $task->getUser() || $this->isGranted('ROLE_ADMIN')) {
                 $this->getDoctrine()->getManager()->flush();
             }
             if ($task->getIsDone()) {
@@ -108,8 +108,7 @@ class TaskController extends AbstractController
      */
     public function delete(Request $request, Task $task): Response
     {
-        
-        if ($this->getUser() === $task->getUser() && $this->isCsrfTokenValid('delete'.$task->getId(), $request->request->get('_token')) || $this->isGranted('ROLE_ADMIN') && $task->getUser()->getDisplayName() === 'Anonyme') {
+        if ($this->getUser() === $task->getUser() && $this->isCsrfTokenValid('delete'.$task->getId(), $request->request->get('_token')) || $this->isGranted('ROLE_ADMIN') &&  $this->isCsrfTokenValid('delete'.$task->getId(), $request->request->get('_token'))) {
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($task);
@@ -118,6 +117,9 @@ class TaskController extends AbstractController
             $this->addFlash('success', 'La tâche à bien été supprimé');
         }
 
-        return $this->redirectToRoute('task_list', [], Response::HTTP_SEE_OTHER);
+        if (!$task->getIsDone()) {
+            return $this->redirectToRoute('task_todo');
+        }
+        return $this->redirectToRoute('task_ended');
     }
 }
