@@ -2,7 +2,6 @@
 
 namespace App\Tests\Controller;
 
-use App\Entity\Task;
 use App\Repository\TaskRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -53,10 +52,11 @@ class TaskControllerTest extends WebTestCase
         
     }
 
-    public function testNew()
+    public function testNewTask()
     {
         $logginUser = $this->user();
         $crawler = $logginUser->request('GET', '/task/new');
+
         $this->assertEquals(200,$logginUser->getResponse()->getStatusCode());
 
         $buttonCrawlerNode = $crawler->selectButton('Enregistrer');
@@ -78,11 +78,11 @@ class TaskControllerTest extends WebTestCase
 
     }
 
-    public function testEdit()
+    public function testEditTask()
     {
         $logginUser = $this->user();
-        $todoGrabbed = $this->grabOneTodo();
-        $crawler = $logginUser->request('POST', '/task/'.$todoGrabbed->getId().'/edit');
+        // $todoGrabbed = $this->grabOneTodo();
+        $crawler = $logginUser->request('POST', '/task/1/edit');
 
         $buttonCrawlerNode = $crawler->selectButton('Update');
 
@@ -90,22 +90,17 @@ class TaskControllerTest extends WebTestCase
         $form = $buttonCrawlerNode->form();
 
         // set values on a form object
-        $form['task[title]'] = $todoGrabbed->getTitle().' test';
-        $form['task[content]'] = $todoGrabbed->getContent().' test';
-
-        if ($todoGrabbed->getIsDone()) {
-            $form['task[isDone]'] = false;    
-        }else {
-            $form['task[isDone]'] = true;
-        }
-        
+        $form['task[title]'] = ' Title test';
+        $form['task[content]'] = 'Content test';
+        $form['task[isDone]'] = true;
+ 
         $crawler = $logginUser->submit($form);
 
         $this->assertResponseIsSuccessful();
 
     }
 
-    public function testDelete()
+    public function testDeleteTask()
     {
         
         $logginUser = $this->user();
