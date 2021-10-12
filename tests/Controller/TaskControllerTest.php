@@ -25,8 +25,9 @@ class TaskControllerTest extends WebTestCase
     private function grabOneTodo()
     {
         $taskRepository = static::getContainer()->get(TaskRepository::class);
-        $findTask = $taskRepository->findAll();
-        return $taskRepository->findOneByid(rand(0,count($findTask)));
+        // $findTask = $taskRepository->findAll();
+        // return $taskRepository->findOneByid(rand(0,count($findTask)));
+        return $taskRepository->find('1');
     }
 
     public function testIndexTodo(): void
@@ -66,7 +67,7 @@ class TaskControllerTest extends WebTestCase
         // set values on a form object
         $form['task[title]'] = 'Titre test';
         $form['task[content]'] = 'Content test';
-        $form['task[isDone]'] = false;
+        $form['task[isDone]'] = true;
         
         $crawler = $logginUser->submit($form);
 
@@ -92,9 +93,13 @@ class TaskControllerTest extends WebTestCase
         // set values on a form object
         $form['task[title]'] = ' Title test';
         $form['task[content]'] = 'Content test';
-        $form['task[isDone]'] = true;
+        $form['task[isDone]'] = false;
  
         $crawler = $logginUser->submit($form);
+
+        if ($logginUser->getResponse()->isRedirection()) {
+            $crawler = $logginUser->followRedirect();
+         }
 
         $this->assertResponseIsSuccessful();
 
@@ -105,8 +110,12 @@ class TaskControllerTest extends WebTestCase
         
         $logginUser = $this->user();
         $todoGrabbed = $this->grabOneTodo();
-        $crawler = $logginUser->request('POST', '/task/'.$todoGrabbed->getId()); 
-        
+        // $crawler = $logginUser->request('POST', '/task/'.$todoGrabbed->getId());
+         
+        $crawler = $logginUser->request('POST', '/task/1');
+
+        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+
         if ($logginUser->getResponse()->isRedirection()) {
             $crawler = $logginUser->followRedirect();
          }
@@ -119,6 +128,6 @@ class TaskControllerTest extends WebTestCase
             $this->assertSelectorTextContains('h1', 'Tâche terminé');
          }
          
-        //  $this->assertEquals(1,$crawler->filter('div.alert-success')->count());
+         $this->assertEquals(1,$crawler->filter('div.alert-success')->count());
     }
 }

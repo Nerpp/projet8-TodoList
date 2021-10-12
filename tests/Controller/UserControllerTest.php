@@ -43,12 +43,13 @@ class UserControllerTest extends WebTestCase
         $crawler = $logginUser->request('POST', '/user/delete/5');
 
         if ($logginUser->getResponse()->isRedirection()) {
+            
             $crawler = $logginUser->followRedirect();
          }
 
         $this->assertResponseIsSuccessful();
 
-        $this->assertEquals(1,$crawler->filter('div.alert-success')->count());
+        $this->assertEquals(0,$crawler->filter('div.alert-danger')->count());
     }
 
     public function testUserEdit()
@@ -99,13 +100,11 @@ class UserControllerTest extends WebTestCase
 
          $crawler = $logginUser->submit($form);
         
+
          if ($logginUser->getResponse()->isRedirection()) {
             $crawler = $logginUser->followRedirect();
          }
-
-        //  $this->assertResponseIsSuccessful();
-        $this->assertEquals(200,$logginUser->getResponse()->getStatusCode());
-
-        // $this->assertEquals(1,$crawler->filter('div.alert-success')->count());
+         $this->assertEquals(200,$logginUser->getResponse()->getStatusCode());
+        $this->assertEquals(1,$crawler->filter('div.alert-success')->count());
     }
 }

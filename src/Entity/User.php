@@ -80,6 +80,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $displayName;
 
+
+    public function setUsername(string $username)
+    {
+        $this->displayName = $username;
+    }
+
+    public function getUsername()
+    {
+        return $this->displayName;
+    }
     
     public function __construct()
     {

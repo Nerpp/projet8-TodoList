@@ -1,0 +1,11 @@
+code coverage:
+php -d xdebug.mode=coverage bin/phpunit --coverage-html web\TestCoverage
+
+
+php bin/phpunit --filter RegistrationControllerTest > tests/functionnalTestsResult/RegistrationControllerTest.html
+
+symfony console make:test
+
+cmd : php bin/phpunit --filter testUserUnityEntity
+
+ cmd : php bin/phpunit --testdox

@@ -55,8 +55,9 @@ class TaskController extends AbstractController
             $entityManager->persist($task);
             $entityManager->flush();
 
+            
             $this->addFlash('success', 'La tâche à bien été crée');
-            return $this->redirectToRoute('task_list', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('task_todo', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('task/new.html.twig', [

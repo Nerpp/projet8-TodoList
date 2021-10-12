@@ -61,21 +61,5 @@ class SecurityControllerTest extends WebTestCase
 
     }
 
-    public function testLogOut()
-    {
-        $client = static::createClient();
-        $userRepository = static::getContainer()->get(UserRepository::class);
-
-        // retrieve the test user
-        $testUser = $userRepository->findOneByEmail('francis@gmail.com');
-
-        // simulate $testUser being logged in
-        $client->loginUser($testUser);
-
-        // test e.g. the profile page
-        $client->request('GET', '/logout');
-       
-        $crawler = $client->request('GET', '/login');
-        $this->assertSelectorTextContains('h1', 'Connection');
-    }
+  
 }

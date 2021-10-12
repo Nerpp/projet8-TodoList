@@ -5,10 +5,7 @@ namespace App\Tests\Entity;
 use App\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-// symfony console make:test
-//TestCase
-//cmd : php bin/phpunit --filter testUserUnityEntity
-// cmd : php bin/phpunit --testdox
+
 
 class UserEntityTest extends TestCase
 {
