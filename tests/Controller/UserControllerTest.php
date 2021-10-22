@@ -40,7 +40,7 @@ class UserControllerTest extends WebTestCase
     public function testUserDelete() : void
     {
         $logginUser = $this->user();
-        $crawler = $logginUser->request('POST', '/user/delete/5');
+        $crawler = $logginUser->request('POST', '/user/delete/4');
 
         if ($logginUser->getResponse()->isRedirection()) {
             
