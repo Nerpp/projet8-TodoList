@@ -69,7 +69,7 @@ class RegistrationControllerTest extends WebTestCase
         //  $this->assertResponseIsSuccessful();
 
 
-         $this->assertSelectorTextContains('h1', 'Bienvenue sur Todo List, l\'application vous permettant de gérer l\'ensemble de vos tâches sans effort !');
+        $this->assertSelectorTextContains('h1', 'Bienvenue sur Todo List, l\'application vous permettant de gérer l\'ensemble de vos tâches sans effort !');
     }
 
     // public function testMailIsSentAndContentIsOk()
