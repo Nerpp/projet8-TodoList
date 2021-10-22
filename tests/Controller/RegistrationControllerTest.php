@@ -29,21 +29,21 @@ class RegistrationControllerTest extends WebTestCase
          // retrieve the Form object for the form belonging to this button
         $form = $buttonCrawlerNode->form();
 
-        $form['registration_form[displayName]'] = 'testController';
-        $form['registration_form[email]'] = 'testController@gmail.com';
+        $form['registration_form[displayName]'] = 'testController2';
+        $form['registration_form[email]'] = 'testController@gmail.com2';
         $form['registration_form[roles]'] = 'ROLE_ADMIN';
-        $form['registration_form[password][first]'] = '12345678';
-        $form['registration_form[password][second]'] = '12345678';
+        $form['registration_form[password][first]'] = 'hJmP@158aqgetq';
+        $form['registration_form[password][second]'] = 'hJmP@158aqgetq';
 
         $crawler = $client->submit($form);
+
+        $this->assertEquals(0,$crawler->filter('div.alert-danger')->count());
 
         if ($client->getResponse()->isRedirection()) {
            $crawler = $client->followRedirect();
         }
 
         $this->assertEquals(200,$client->getResponse()->getStatusCode());
-
-
 
     }
 

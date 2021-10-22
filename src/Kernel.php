@@ -6,11 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
-use PHPUnit\Framework\TestCase;
 
-/**
- *  @codeCoverageIgnore
- */
+
 class Kernel extends BaseKernel
 {
     use MicroKernelTrait;

@@ -8,10 +8,9 @@ use Doctrine\Persistence\ManagerRegistry;
 use SymfonyCasts\Bundle\ResetPassword\Model\ResetPasswordRequestInterface;
 use SymfonyCasts\Bundle\ResetPassword\Persistence\Repository\ResetPasswordRequestRepositoryTrait;
 use SymfonyCasts\Bundle\ResetPassword\Persistence\ResetPasswordRequestRepositoryInterface;
-use PHPUnit\Framework\TestCase;
+
 
 /**
- * @codeCoverageIgnore
  * @method ResetPasswordRequest|null find($id, $lockMode = null, $lockVersion = null)
  * @method ResetPasswordRequest|null findOneBy(array $criteria, array $orderBy = null)
  * @method ResetPasswordRequest[]    findAll()
