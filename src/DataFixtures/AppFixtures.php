@@ -50,6 +50,12 @@ class AppFixtures extends Fixture
                 'role' => ['ROLE_USER'],
                 'password' => '12345678'
             ],
+            [
+                'displayName' => 'Karl',
+                'email' => 'regiaurelien@gmail.com',
+                'role' => ['ROLE_USER'],
+                'password' => '12345678'
+            ],
 
         ];
 

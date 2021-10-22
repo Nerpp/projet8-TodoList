@@ -16,7 +16,7 @@ class RegistrationControllerTest extends WebTestCase
 
     public function testRegistrationIsUp(): void
     {
-        $client = static::createClient();
+        $client = $this->client();
         $crawler = $client->request('GET', '/register');
 
         $this->assertResponseIsSuccessful();
@@ -25,7 +25,7 @@ class RegistrationControllerTest extends WebTestCase
 
     public function testRegistration()
     {
-        $client = static::createClient();
+        $client = $this->client();
 
         $crawler = $client->request('GET', '/register');
 
