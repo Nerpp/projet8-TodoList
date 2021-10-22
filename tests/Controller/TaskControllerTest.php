@@ -79,11 +79,16 @@ class TaskControllerTest extends WebTestCase
 
     }
 
-    public function testEditTask()
+    public function testEditTaskFalse()
     {
         $logginUser = $this->user();
-        // $todoGrabbed = $this->grabOneTodo();
-        $crawler = $logginUser->request('POST', '/task/1/edit');
+
+        $taskRepository = static::getContainer()->get(TaskRepository::class);
+        $task = $taskRepository->findOneBy(['isDone'=> false]);
+    
+        $crawler = $logginUser->request('POST', '/task/'.$task->getId().'/edit');
+
+        // $crawler = $logginUser->request('POST', '/task/1/edit');
 
         $buttonCrawlerNode = $crawler->selectButton('Update');
 
@@ -102,32 +107,79 @@ class TaskControllerTest extends WebTestCase
          }
 
         $this->assertResponseIsSuccessful();
-
+        $this->assertEquals(0,$crawler->filter('div.alert-failed')->count());
     }
 
-    public function testDeleteTask()
+    public function testEditTaskTrue()
+    {
+        $logginUser = $this->user();
+
+        $taskRepository = static::getContainer()->get(TaskRepository::class);
+        $task = $taskRepository->findOneBy(['isDone'=> true]);
+    
+        $crawler = $logginUser->request('POST', '/task/'.$task->getId().'/edit');
+
+        $buttonCrawlerNode = $crawler->selectButton('Update');
+
+        // retrieve the Form object for the form belonging to this button
+        $form = $buttonCrawlerNode->form();
+
+        // set values on a form object
+        $form['task[title]'] = ' Title test';
+        $form['task[content]'] = 'Content test';
+        $form['task[isDone]'] = true;
+ 
+        $crawler = $logginUser->submit($form);
+
+        if ($logginUser->getResponse()->isRedirection()) {
+            $crawler = $logginUser->followRedirect();
+         }
+
+        $this->assertResponseIsSuccessful();
+        $this->assertEquals(0,$crawler->filter('div.alert-failed')->count());
+    }
+
+
+
+    public function testDeleteTaskTodo()
     {
         
         $logginUser = $this->user();
-        $todoGrabbed = $this->grabOneTodo();
-        // $crawler = $logginUser->request('POST', '/task/'.$todoGrabbed->getId());
-         
-        $crawler = $logginUser->request('POST', '/task/1');
 
-        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
-
+        $taskRepository = static::getContainer()->get(TaskRepository::class);
+        $task = $taskRepository->findOneBy(['isDone'=> false]);
+    
+        $crawler = $logginUser->request('POST', '/task/'.$task->getId());
+        // $crawler = $logginUser->request('POST', '/task/1');
+                
         if ($logginUser->getResponse()->isRedirection()) {
             $crawler = $logginUser->followRedirect();
          }
         
          $this->assertEquals(200,$logginUser->getResponse()->getStatusCode());
 
-         if (!$todoGrabbed->getIsDone()) {
-            $this->assertSelectorTextContains('h1', 'Tâche non terminé');
-         }else {
-            $this->assertSelectorTextContains('h1', 'Tâche terminé');
+        $this->assertSelectorTextContains('h1', 'Tâche non terminé');
+        $this->assertEquals(0,$crawler->filter('div.alert-failed')->count());
+    }
+
+    public function testDeleteTaskUndo()
+    {
+        
+        $logginUser = $this->user();
+
+        $taskRepository = static::getContainer()->get(TaskRepository::class);
+        $task = $taskRepository->findOneBy(['isDone'=>true]);
+    
+        $crawler = $logginUser->request('POST', '/task/'.$task->getId());
+
+                
+        if ($logginUser->getResponse()->isRedirection()) {
+            $crawler = $logginUser->followRedirect();
          }
-         
-         $this->assertEquals(1,$crawler->filter('div.alert-success')->count());
+        
+         $this->assertEquals(200,$logginUser->getResponse()->getStatusCode());
+
+        $this->assertSelectorTextContains('h1', 'Tâche terminé');
+        $this->assertEquals(0,$crawler->filter('div.alert-failed')->count());
     }
 }

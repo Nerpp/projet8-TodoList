@@ -64,8 +64,8 @@ class UserControllerTest extends WebTestCase
          $form = $buttonCrawlerNode->form();
 
          // set values on a form object
-         $form['user[displayName]'] = 'Test';
-         $form['user[email]'] = 'test@gmail.com';
+         $form['user[displayName]'] = 'TestEdit';
+         $form['user[email]'] = 'testEdit@gmail.com';
          $form['user[roles]'] = 'ROLE_USER';
 
          $crawler = $logginUser->submit($form);
@@ -92,8 +92,8 @@ class UserControllerTest extends WebTestCase
         $form = $buttonCrawlerNode->form();
 
          // set values on a form object
-         $form['user[displayName]'] = 'Test2';
-         $form['user[email]'] = 'test2@gmail.com';
+         $form['user[displayName]'] = 'TestNew';
+         $form['user[email]'] = 'testNew@gmail.com';
          $form['user[roles]'] = 'ROLE_USER';
          $form['user[password][first]'] = '1HjLm;8Qet';
          $form['user[password][second]'] = '1HjLm;8Qet';

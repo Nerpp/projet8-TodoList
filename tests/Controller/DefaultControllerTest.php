@@ -23,7 +23,7 @@ class DefaultControllerTest extends WebTestCase
         // test e.g. the profile page
         $client->request('GET', '/');
         $this->assertResponseIsSuccessful();
-        // $this->assertSelectorTextContains('h1', 'Hello John!');
+  
         echo $client->getResponse()->getContent();
     }
 }

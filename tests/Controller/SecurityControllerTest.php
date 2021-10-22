@@ -15,19 +15,7 @@ class SecurityControllerTest extends WebTestCase
     {
         return static::createClient();
     }
-
-    private function user($client)
-    {
-        // $client = static::createClient();
-        $userRepository = static::getContainer()->get(UserRepository::class);
-
-        // retrieve the test user
-        $grabUser = $userRepository->findOneByEmail('francis@gmail.com');
-
-        // simulate $testUser being logged in
-        return $client->loginUser($grabUser);   
-    }
-    
+  
     public function testLogginIsUp(): void
     {
     
@@ -51,10 +39,8 @@ class SecurityControllerTest extends WebTestCase
     {
        
         $client = $this->client();
-
         $crawler = $client->request('GET', '/login');
 
-        
         // select the button
         $buttonCrawlerNode = $crawler->selectButton('Se connecter');
 
@@ -82,5 +68,24 @@ class SecurityControllerTest extends WebTestCase
 
     }
 
+    public function testLogginAlsoConnected()
+    {
+        $client = $this->client();
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        // retrieve the test user
+        $grabUser = $userRepository->findOneByEmail('francis@gmail.com');
+
+        $client = $client->loginUser($grabUser);
+
+        $crawler = $client->request('GET', '/login');
+
+        if ($client->getResponse()->isRedirection()) {
+            $crawler = $client->followRedirect();
+         }
+
+         $this->assertResponseIsSuccessful();
+
+         $this->assertSelectorTextContains('h1', 'Bienvenue sur Todo List, l\'application vous permettant de gérer l\'ensemble de vos tâches sans effort !');
+    }
   
 }
