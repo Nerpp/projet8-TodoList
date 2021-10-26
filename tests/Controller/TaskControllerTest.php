@@ -181,7 +181,6 @@ class TaskControllerTest extends WebTestCase
         $crawler = $logginUser->request('GET', '/task/'.$task->getId());
 
         $buttonCrawlerNode = $crawler->selectButton('Supprimer');
-
         $form = $buttonCrawlerNode->form();
 
         $crawler = $logginUser->submit($form);
