@@ -2,45 +2,11 @@
 
 {% block title %}Reset your password{% endblock %}
 
-{% block header_title %}
-	<div class="container">
-		<div class="d-flex justify-content-center">
-			<h1>Changer votre mot de passe</h1>
-		</div>
-	</div>
-{% endblock %}
-
 {% block body %}
-	<div class="container">
-		<div class="row">
-			{{ form_start(resetForm) }}
-			<div class="d-flex flex-column align-items-center">
-				<div class="col-8">
-					{{ form_label(resetForm.plainPassword.first,'Mot de passe') }}
-				</div>
-				<div class="col-8 p-1">
-					{{ form_errors(resetForm.plainPassword.first)}}
-				</div>
-				<div class="col-8 p-1">
-					{{ form_widget(resetForm.plainPassword.first, {'attr': {'class': 'form-control'}}) }}
-				</div>
-				<div class="col-8 p-1">
-					{{ form_label(resetForm.plainPassword.second,'Confirmer votre Mot de passe') }}
-				</div>
-				<div class="col-8 p-1">
-					{{ form_errors(resetForm.plainPassword.second)}}
-				</div>
-				<div class="col-8 p-1">
-					{{ form_widget(resetForm.plainPassword.second, {'attr': {'class': 'form-control'}}) }}
-				</div>
-				<div class="p-4">
-					<button class="btn btn-primary">Reset password</button>
-				</div>
-			</div>
-			{{ form_end(resetForm) }}
-		</div>
-	</div>
-</div>{% endblock %}
+    <h1>Reset your password</h1>
 
-
-
+    {{ form_start(resetForm) }}
+        {{ form_row(resetForm.plainPassword) }}
+        <button class="btn btn-primary">Reset password</button>
+    {{ form_end(resetForm) }}
+{% endblock %}
