@@ -47,7 +47,9 @@ class TaskControllerTest extends WebTestCase
     public function testTaskShow()
     {
         
-        $crawler = $this->user()->request('GET', '/task/'.$this->grabOneTodo()->getId());
+        // $crawler = $this->user()->request('GET', '/task/'.$this->grabOneTodo()->getId());
+
+        $crawler = $this->user()->request('GET', '/task/1');
 
         $this->assertResponseIsSuccessful();
         
@@ -149,8 +151,14 @@ class TaskControllerTest extends WebTestCase
         $taskRepository = static::getContainer()->get(TaskRepository::class);
         $task = $taskRepository->findOneBy(['isDone'=> false]);
     
-        $crawler = $logginUser->request('POST', '/task/'.$task->getId());
+        $crawler = $logginUser->request('GET', '/task/'.$task->getId());
         // $crawler = $logginUser->request('POST', '/task/1');
+
+        $buttonCrawlerNode = $crawler->selectButton('Supprimer');
+
+        $form = $buttonCrawlerNode->form();
+
+        $crawler = $logginUser->submit($form);
                 
         if ($logginUser->getResponse()->isRedirection()) {
             $crawler = $logginUser->followRedirect();
@@ -170,8 +178,13 @@ class TaskControllerTest extends WebTestCase
         $taskRepository = static::getContainer()->get(TaskRepository::class);
         $task = $taskRepository->findOneBy(['isDone'=>true]);
     
-        $crawler = $logginUser->request('POST', '/task/'.$task->getId());
+        $crawler = $logginUser->request('GET', '/task/'.$task->getId());
 
+        $buttonCrawlerNode = $crawler->selectButton('Supprimer');
+
+        $form = $buttonCrawlerNode->form();
+
+        $crawler = $logginUser->submit($form);
                 
         if ($logginUser->getResponse()->isRedirection()) {
             $crawler = $logginUser->followRedirect();

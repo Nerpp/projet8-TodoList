@@ -72,10 +72,16 @@ class RegistrationController extends AbstractController
 
                 try {
                     $mailer->send($email);
-                } catch (TransportExceptionInterface $e) {
+                }
+                
+         // @codeCoverageIgnoreStart
+                catch (TransportExceptionInterface $e) {
+                  
                     $this->addFlash('failed', 'Un probléme est survenue lors de l\'envoit du mail, veuillez vous réinscrire !');
                     return $this->redirectToRoute('app_register');
                 }
+         // @codeCoverageIgnoreEnd
+      
 
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($user);
@@ -97,18 +103,23 @@ class RegistrationController extends AbstractController
         
         $user = $users->findOneBy(['token_validation' => $token]);
 
+         
+         // @codeCoverageIgnoreStart
         if (!$user) {
             // On renvoie une erreur 404
             throw $this->createNotFoundException('Unknow user');
         }
+         // @codeCoverageIgnoreEnd
 
         $now = new \DateTime();
         $interval = $now->diff($user->getAskedAt());
         $interval = (int)$interval->format('%R%a');
 
+         // @codeCoverageIgnoreStart
         if ($interval >> 2) {
             throw $this->createNotFoundException('Bloody fate, the confirmation is out of concern, can you try again !');
         }
+        // @codeCoverageIgnoreEnd
 
         $user->setIsVerified(true);
         $user->setTokenValidation(null);

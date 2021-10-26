@@ -37,21 +37,6 @@ class UserControllerTest extends WebTestCase
         $this->assertSelectorTextContains('h1', 'Visualiser l\'utilisateur');
     }
 
-    public function testUserDelete() : void
-    {
-        $logginUser = $this->user();
-        $crawler = $logginUser->request('POST', '/user/delete/4');
-
-        if ($logginUser->getResponse()->isRedirection()) {
-            
-            $crawler = $logginUser->followRedirect();
-         }
-
-        $this->assertResponseIsSuccessful();
-
-        $this->assertEquals(0,$crawler->filter('div.alert-danger')->count());
-    }
-
     public function testUserEdit()
     {
         $logginUser = $this->user();
@@ -107,4 +92,23 @@ class UserControllerTest extends WebTestCase
         $this->assertEquals(200,$logginUser->getResponse()->getStatusCode());
         $this->assertEquals(0,$crawler->filter('div.alert-failed')->count());
     }
+
+    public function testUserDelete() : void
+    {
+        $logginUser = $this->user();
+        $crawler = $logginUser->request('POST', '/user/delete/4');
+
+        $buttonCrawlerNode = $crawler->selectButton('Supprimer');
+        $form = $buttonCrawlerNode->form();
+        $crawler = $logginUser->submit($form);
+
+        if ($logginUser->getResponse()->isRedirection()) {
+            
+            $crawler = $logginUser->followRedirect();
+         }
+
+        $this->assertResponseIsSuccessful();
+        $this->assertEquals(0,$crawler->filter('div.alert-danger')->count());
+    }
+
 }
