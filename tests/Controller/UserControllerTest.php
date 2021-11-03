@@ -96,7 +96,7 @@ class UserControllerTest extends WebTestCase
     public function testUserDelete() : void
     {
         $logginUser = $this->user();
-        $crawler = $logginUser->request('POST', '/user/delete/4');
+        $crawler = $logginUser->request('GET', '/user/show/4');
 
         $buttonCrawlerNode = $crawler->selectButton('Supprimer');
         $form = $buttonCrawlerNode->form();

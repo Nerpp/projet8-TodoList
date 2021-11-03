@@ -26,7 +26,7 @@
                 <a href="{{ path('user_new') }}" class="btn btn-primary">Créer un utilisateur</a>
                 <a href="{{ path('user_index') }}" class="btn btn-warning">Liste des utilisateurs</a>
                 {% elseif not app.user %}
-                <a href="{{ path('app_register') }}" class="btn btn-primary">Créer un utilisateur</a> 
+                <a href="{{ path('app_register') }}" class="btn btn-primary">Enregistrement</a> 
             {% endif %}
                 {% if app.user %}
                 <a href="{{ path('app_logout') }}" class="pull-right btn btn-danger">Se déconnecter</a>
