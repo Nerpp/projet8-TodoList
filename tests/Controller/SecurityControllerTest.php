@@ -60,7 +60,7 @@ class SecurityControllerTest extends WebTestCase
         if ($client->getResponse()->isRedirection()) {
            $crawler = $client->followRedirect();
         }
-       
+        $this->assertResponseIsSuccessful();
         $this->assertEquals(200,$client->getResponse()->getStatusCode());
 
         // si la connexion fonctionne il ne devrait pas trouver d'alert-danger premiere variable le nombre qu'il doit trouver, seconde variable la fonction qui va compter
@@ -84,7 +84,7 @@ class SecurityControllerTest extends WebTestCase
          }
 
          $this->assertResponseIsSuccessful();
-
+         $this->assertEquals(200,$client->getResponse()->getStatusCode());
          $this->assertSelectorTextContains('h1', 'Bienvenue sur Todo List, l\'application vous permettant de gérer l\'ensemble de vos tâches sans effort !');
     }
 
@@ -98,7 +98,7 @@ class SecurityControllerTest extends WebTestCase
         $client = $client->loginUser($grabUser);
 
         $crawler = $client->request('GET', '/login');
-
+        
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
         
     }

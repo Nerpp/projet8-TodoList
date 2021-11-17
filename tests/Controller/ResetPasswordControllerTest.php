@@ -21,6 +21,7 @@ class ResetPasswordControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/reset-password');
 
         $this->assertResponseIsSuccessful();
+        $this->assertEquals(200,$client->getResponse()->getStatusCode());
         $this->assertSelectorTextContains('h1', 'Changer le mot de passe');
     }
 
@@ -40,7 +41,7 @@ class ResetPasswordControllerTest extends WebTestCase
        if ($client->getResponse()->isRedirection()) {
         $crawler = $client->followRedirect();
      }
-
+     $this->assertResponseIsSuccessful();
      $this->assertEquals(200,$client->getResponse()->getStatusCode());
 
     }
@@ -61,24 +62,10 @@ class ResetPasswordControllerTest extends WebTestCase
        if ($client->getResponse()->isRedirection()) {
         $crawler = $client->followRedirect();
      }
-
+     $this->assertResponseIsSuccessful();
      $this->assertEquals(200,$client->getResponse()->getStatusCode());
 
     }
-
-    // public function testNullToken()
-    // {
-        
-
-    //     $client = $this->client();
-       
-    //     $crawler = $client->request('GET', '/reset-password/reset/'.null);
-
-    //     $this->fail('No reset password token found in the URL or in the session.');  
-    //     // $this->expectException(createNotFoundException::class);
-    //     // $client->catchExceptions (false);
-         
-    // }
 
     public function testInvalidToken()
     {
@@ -92,9 +79,7 @@ class ResetPasswordControllerTest extends WebTestCase
 
          $this->assertEquals(0,$crawler->filter('div.alert-success')->count());
 
-
-        //  $this->assertResponseIsSuccessful();
-        //  $this->assertEquals(200,$client->getResponse()->getStatusCode());
+         $this->assertEquals(302,$client->getResponse()->getStatusCode());
          
     }
 

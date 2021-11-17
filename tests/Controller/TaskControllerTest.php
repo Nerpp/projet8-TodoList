@@ -32,25 +32,32 @@ class TaskControllerTest extends WebTestCase
 
     public function testIndexTodo(): void
     {
-        $crawler = $this->user()->request('GET', '/task/todo');
+        $client = $this->user();
+        $crawler = $client->request('GET', '/task/todo');
         $this->assertResponseIsSuccessful();
+        $this->assertEquals(200,$client->getResponse()->getStatusCode());
         $this->assertSelectorTextContains('h1', 'Tâche non terminé');
     }
 
     public function testIndexEnded(): void
     {
-        $crawler = $this->user()->request('GET', '/task/ended');
+        $client = $this->user();
+        $crawler = $client->request('GET', '/task/ended');
         $this->assertResponseIsSuccessful();
+        $this->assertEquals(200,$client->getResponse()->getStatusCode());
         $this->assertSelectorTextContains('h1', 'Tâche terminé');
     }
 
     public function testTaskShow()
     {
-        
-        // $crawler = $this->user()->request('GET', '/task/'.$this->grabOneTodo()->getId());
+        $client = $this->user();
+        $crawler = $client->request('GET', '/task/1');
 
-        $crawler = $this->user()->request('GET', '/task/1');
+        if ($client->getResponse()->isRedirection()) {
+            $crawler = $client->followRedirect();
+         }
 
+        $this->assertEquals(200,$client->getResponse()->getStatusCode());
         $this->assertResponseIsSuccessful();
         
     }
@@ -78,6 +85,7 @@ class TaskControllerTest extends WebTestCase
          }
 
         $this->assertResponseIsSuccessful();
+        $this->assertEquals(200,$logginUser->getResponse()->getStatusCode());
 
     }
 
@@ -109,6 +117,7 @@ class TaskControllerTest extends WebTestCase
          }
 
         $this->assertResponseIsSuccessful();
+        $this->assertEquals(200,$logginUser->getResponse()->getStatusCode());
         $this->assertEquals(0,$crawler->filter('div.alert-failed')->count());
     }
 
@@ -138,6 +147,7 @@ class TaskControllerTest extends WebTestCase
          }
 
         $this->assertResponseIsSuccessful();
+        $this->assertEquals(200,$logginUser->getResponse()->getStatusCode());
         $this->assertEquals(0,$crawler->filter('div.alert-failed')->count());
     }
 
@@ -164,6 +174,7 @@ class TaskControllerTest extends WebTestCase
             $crawler = $logginUser->followRedirect();
          }
         
+         $this->assertResponseIsSuccessful();
          $this->assertEquals(200,$logginUser->getResponse()->getStatusCode());
 
         $this->assertSelectorTextContains('h1', 'Tâche non terminé');
@@ -189,6 +200,7 @@ class TaskControllerTest extends WebTestCase
             $crawler = $logginUser->followRedirect();
          }
         
+         $this->assertResponseIsSuccessful();
          $this->assertEquals(200,$logginUser->getResponse()->getStatusCode());
 
         $this->assertSelectorTextContains('h1', 'Tâche terminé');

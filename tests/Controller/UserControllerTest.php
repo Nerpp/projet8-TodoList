@@ -89,6 +89,7 @@ class UserControllerTest extends WebTestCase
             $crawler = $logginUser->followRedirect();
          }
 
+        $this->assertResponseIsSuccessful();
         $this->assertEquals(200,$logginUser->getResponse()->getStatusCode());
         $this->assertEquals(0,$crawler->filter('div.alert-failed')->count());
     }
@@ -108,6 +109,7 @@ class UserControllerTest extends WebTestCase
          }
 
         $this->assertResponseIsSuccessful();
+        $this->assertEquals(200,$logginUser->getResponse()->getStatusCode());
         $this->assertEquals(0,$crawler->filter('div.alert-danger')->count());
     }
 

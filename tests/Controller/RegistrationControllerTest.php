@@ -20,6 +20,7 @@ class RegistrationControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/register');
 
         $this->assertResponseIsSuccessful();
+        $this->assertEquals(200,$client->getResponse()->getStatusCode());
         $this->assertSelectorTextContains('h1', 'Création Utilisateur');
     }
 
@@ -48,7 +49,7 @@ class RegistrationControllerTest extends WebTestCase
         if ($client->getResponse()->isRedirection()) {
            $crawler = $client->followRedirect();
         }
-
+        $this->assertResponseIsSuccessful();
         $this->assertEquals(200,$client->getResponse()->getStatusCode());
 
     }
@@ -65,7 +66,7 @@ class RegistrationControllerTest extends WebTestCase
         if ($client->getResponse()->isRedirection()) {
             $crawler = $client->followRedirect();
          }
-        
+         
          $this->assertEquals(302,$client->getResponse()->getStatusCode());
 
     }

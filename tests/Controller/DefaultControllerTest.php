@@ -24,6 +24,8 @@ class DefaultControllerTest extends WebTestCase
         // test e.g. the profile page
         $client->request('GET', '/');
         $this->assertResponseIsSuccessful();
+
+        $this->assertEquals(200,$client->getResponse()->getStatusCode());
   
     }
 }
