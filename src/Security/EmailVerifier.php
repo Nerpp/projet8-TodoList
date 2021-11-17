@@ -23,6 +23,7 @@ class EmailVerifier
         $this->entityManager = $manager;
     }
 
+    // @codeCoverageIgnoreStart
     public function sendEmailConfirmation(string $verifyEmailRouteName, UserInterface $user, TemplatedEmail $email): void
     {
         $signatureComponents = $this->verifyEmailHelper->generateSignature(
@@ -53,4 +54,5 @@ class EmailVerifier
         $this->entityManager->persist($user);
         $this->entityManager->flush();
     }
+    // @codeCoverageIgnoreEnd
 }

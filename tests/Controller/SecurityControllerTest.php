@@ -87,5 +87,20 @@ class SecurityControllerTest extends WebTestCase
 
          $this->assertSelectorTextContains('h1', 'Bienvenue sur Todo List, l\'application vous permettant de gérer l\'ensemble de vos tâches sans effort !');
     }
+
+    public function testLogginAnonyme()
+    {
+        $client = $this->client();
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        // retrieve the test user
+        $grabUser = $userRepository->findOneByEmail('anonyme@gmail.com');
+
+        $client = $client->loginUser($grabUser);
+
+        $crawler = $client->request('GET', '/login');
+
+        $this->assertEquals(302, $client->getResponse()->getStatusCode());
+        
+    }
   
 }

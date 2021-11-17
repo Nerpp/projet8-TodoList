@@ -9,6 +9,7 @@ use App\Repository\UserRepository;
 
 class DefaultControllerTest extends WebTestCase
 {
+    
     public function testDefaultisUp(): void
     {
         $client = static::createClient();
@@ -24,6 +25,5 @@ class DefaultControllerTest extends WebTestCase
         $client->request('GET', '/');
         $this->assertResponseIsSuccessful();
   
-        echo $client->getResponse()->getContent();
     }
 }
