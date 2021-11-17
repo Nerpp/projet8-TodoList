@@ -33,6 +33,7 @@ class ResetPasswordRequest implements ResetPasswordRequestInterface
         $this->initialize($expiresAt, $selector, $hashedToken);
     }
 
+    // @codeCoverageIgnoreStart
     public function getId(): ?int
     {
         return $this->id;
@@ -42,4 +43,5 @@ class ResetPasswordRequest implements ResetPasswordRequestInterface
     {
         return $this->user;
     }
+    // @codeCoverageIgnoreEnd
 }

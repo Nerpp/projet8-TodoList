@@ -53,7 +53,9 @@ class SecurityControllerAuthenticator extends AbstractLoginFormAuthenticator
 
         
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
+            // @codeCoverageIgnoreStart
             return new RedirectResponse($targetPath);
+            // @codeCoverageIgnoreEnd
         }
 
         // For example:

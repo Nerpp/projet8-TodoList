@@ -12,7 +12,9 @@ class UserChecker implements UserCheckerInterface
     public function checkPreAuth(UserInterface $user): void
     {
         if (!$user instanceof AppUser) {
+            // @codeCoverageIgnoreStart
             return;
+            // @codeCoverageIgnoreEnd
         }
         
     }
@@ -20,15 +22,21 @@ class UserChecker implements UserCheckerInterface
     public function checkPostAuth(UserInterface $user): void
     {
         if (!$user instanceof AppUser) {
+            // @codeCoverageIgnoreStart
             return;
+            // @codeCoverageIgnoreEnd
         }
         if ($user->getEmail() === 'anonyme@gmail.com') {
+            // @codeCoverageIgnoreStart
             throw new CustomUserMessageAccountStatusException('Je ne comprend pas la question.');
+            // @codeCoverageIgnoreEnd
         }
 
         if (!$user->isVerified() ) {
             // the message passed to this exception is meant to be displayed to the user
+            // @codeCoverageIgnoreStart
             throw new CustomUserMessageAccountStatusException('Votre compte n\'a pas été verifié.');
+            // @codeCoverageIgnoreEnd
         }
       
     }

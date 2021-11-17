@@ -80,7 +80,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $displayName;
 
-
+// @codeCoverageIgnoreStart
     public function setUsername(string $username)
     {
         $this->displayName = $username;
@@ -90,6 +90,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->displayName;
     }
+    // @codeCoverageIgnoreEnd
     
     public function __construct()
     {
@@ -177,6 +178,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    // @codeCoverageIgnoreStart
     /**
      * @return Collection|Task[]
      */
@@ -206,6 +208,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+    // @codeCoverageIgnoreEnd
 
     public function isVerified(): bool
     {
