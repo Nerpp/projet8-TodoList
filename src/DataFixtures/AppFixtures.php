@@ -8,7 +8,6 @@ use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-
 class AppFixtures extends Fixture
 {
     public function __construct(UserPasswordHasherInterface $encoder)
@@ -18,7 +17,7 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        
+
         $listUser = [
             [
                 'displayName' => 'Anonyme',
@@ -87,37 +86,35 @@ class AppFixtures extends Fixture
 
         ];
 
-        foreach($listUser as $userListed)
-        {
+        foreach ($listUser as $userListed) {
             $user = new User();
             $user->setEmail($userListed['email']);
-            $user->setPassword($this->encoder->hashPassword($user,$userListed['password']));
+            $user->setPassword($this->encoder->hashPassword($user, $userListed['password']));
             $user->setDisplayName($userListed['displayName']);
             $user->setRoles($userListed['role']);
             if ($userListed['displayName'] === 'Anonyme') {
                 $user->setIsVerified(0);
-            }else {
+            } else {
                 $user->setIsVerified(1);
             }
-           
+
             $manager->persist($user);
             $allUser[] = $user;
         }
         $manager->flush();
 
         foreach ($listUser as $key => $userListed) {
-            
             foreach ($listTask as $keyTask => $taskListed) {
-                $task = new Task;
+                $task = new Task();
                 if ($key === 0) {
                     $task->setCreatedAt(new \DateTime());
-                }else{
-                    $task->setCreatedAt(new \DateTime('+'.mt_rand(5,19).'days'));
+                } else {
+                    $task->setCreatedAt(new \DateTime('+' . mt_rand(5, 19) . 'days'));
                 }
-                
+
                 $task->setTitle($taskListed['title']);
                 $task->setContent($taskListed['content']);
-                $task->setIsDone(mt_rand(0,1));
+                $task->setIsDone(mt_rand(0, 1));
                 $task->setUser($allUser[$key]);
                 $manager->persist($task);
             }

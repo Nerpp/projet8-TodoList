@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class TaskEntityTest extends TestCase
 {
-   
+
     public function testtaskUnityEntity()
     {
         $task = new Task();
@@ -23,8 +23,5 @@ class TaskEntityTest extends TestCase
             $this->assertTrue($task->getContent() === 'Content test');
             $this->assertTrue($task->getCreatedAt() === $datetime);
             $this->assertTrue($task->getIsDone() === true);
-              
     }
-
-    
 }

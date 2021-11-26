@@ -5,8 +5,6 @@ namespace App\Tests;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use App\Repository\ResetPasswordRequestRepository;
 
-
-
 // php bin/phpunit --filter ResetPasswordControllerTest
 class ResetPasswordControllerTest extends WebTestCase
 {
@@ -21,7 +19,7 @@ class ResetPasswordControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/reset-password');
 
         $this->assertResponseIsSuccessful();
-        $this->assertEquals(200,$client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertSelectorTextContains('h1', 'Changer le mot de passe');
     }
 
@@ -33,17 +31,16 @@ class ResetPasswordControllerTest extends WebTestCase
         $buttonCrawlerNode = $crawler->selectButton('Demander le lien');
 
         // retrieve the Form object for the form belonging to this button
-       $form = $buttonCrawlerNode->form();
+        $form = $buttonCrawlerNode->form();
 
-       $form['reset_password_request_form[email]'] = 'erica@gmail.com';
-       $crawler = $client->submit($form);
+        $form['reset_password_request_form[email]'] = 'erica@gmail.com';
+        $crawler = $client->submit($form);
 
-       if ($client->getResponse()->isRedirection()) {
-        $crawler = $client->followRedirect();
-     }
-     $this->assertResponseIsSuccessful();
-     $this->assertEquals(200,$client->getResponse()->getStatusCode());
-
+        if ($client->getResponse()->isRedirection()) {
+            $crawler = $client->followRedirect();
+        }
+        $this->assertResponseIsSuccessful();
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 
     public function testAskLinkNull()
@@ -54,35 +51,30 @@ class ResetPasswordControllerTest extends WebTestCase
         $buttonCrawlerNode = $crawler->selectButton('Demander le lien');
 
         // retrieve the Form object for the form belonging to this button
-       $form = $buttonCrawlerNode->form();
+        $form = $buttonCrawlerNode->form();
 
-       $form['reset_password_request_form[email]'] = 'null@gmail.com';
-       $crawler = $client->submit($form);
+        $form['reset_password_request_form[email]'] = 'null@gmail.com';
+        $crawler = $client->submit($form);
 
-       if ($client->getResponse()->isRedirection()) {
-        $crawler = $client->followRedirect();
-     }
-     $this->assertResponseIsSuccessful();
-     $this->assertEquals(200,$client->getResponse()->getStatusCode());
-
+        if ($client->getResponse()->isRedirection()) {
+            $crawler = $client->followRedirect();
+        }
+        $this->assertResponseIsSuccessful();
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 
     public function testInvalidToken()
     {
         $client = $this->client();
-       
+
         $crawler = $client->request('GET', '/reset-password/reset/123456789');
-        
+
         if ($client->getResponse()->isRedirection()) {
             $crawler = $client->followRedirect();
-         }
+        }
 
-         $this->assertEquals(0,$crawler->filter('div.alert-success')->count());
+         $this->assertEquals(0, $crawler->filter('div.alert-success')->count());
 
-         $this->assertEquals(302,$client->getResponse()->getStatusCode());
-         
+         $this->assertEquals(302, $client->getResponse()->getStatusCode());
     }
-
-   
-
 }

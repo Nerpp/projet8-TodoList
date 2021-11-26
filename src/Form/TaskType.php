@@ -18,8 +18,8 @@ class TaskType extends AbstractType
             ->add('title')
             ->add('content', TextareaType::class, array(
                 'attr' => array('cols' => '12', 'rows' => '12'),
-                
-                )) 
+
+                ))
             ->add('isDone')
             // ->add('isDone', CheckboxType::class, [
             //     'label_attr' => ['class' => 'switch-custom'],

@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 // php bin/phpunit --filter TaskControllerTest > tests/functionnalTestsResult/TaskControllerTest.html
 class TaskControllerTest extends WebTestCase
 {
-   
+
     private function user()
     {
         $client = static::createClient();
@@ -19,7 +19,7 @@ class TaskControllerTest extends WebTestCase
         $grabUser = $userRepository->findOneByEmail('francis@gmail.com');
 
         // simulate $testUser being logged in
-        return $client->loginUser($grabUser);   
+        return $client->loginUser($grabUser);
     }
 
     private function grabOneTodo()
@@ -35,7 +35,7 @@ class TaskControllerTest extends WebTestCase
         $client = $this->user();
         $crawler = $client->request('GET', '/task/todo');
         $this->assertResponseIsSuccessful();
-        $this->assertEquals(200,$client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertSelectorTextContains('h1', 'Tâche non terminé');
     }
 
@@ -44,7 +44,7 @@ class TaskControllerTest extends WebTestCase
         $client = $this->user();
         $crawler = $client->request('GET', '/task/ended');
         $this->assertResponseIsSuccessful();
-        $this->assertEquals(200,$client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertSelectorTextContains('h1', 'Tâche terminé');
     }
 
@@ -55,11 +55,10 @@ class TaskControllerTest extends WebTestCase
 
         if ($client->getResponse()->isRedirection()) {
             $crawler = $client->followRedirect();
-         }
+        }
 
-        $this->assertEquals(200,$client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertResponseIsSuccessful();
-        
     }
 
     public function testNewTask()
@@ -67,26 +66,25 @@ class TaskControllerTest extends WebTestCase
         $logginUser = $this->user();
         $crawler = $logginUser->request('GET', '/task/new');
 
-        $this->assertEquals(200,$logginUser->getResponse()->getStatusCode());
+        $this->assertEquals(200, $logginUser->getResponse()->getStatusCode());
 
         $buttonCrawlerNode = $crawler->selectButton('Enregistrer');
 
         $form = $buttonCrawlerNode->form();
-        
+
         // set values on a form object
         $form['task[title]'] = 'Titre test';
         $form['task[content]'] = 'Content test';
         $form['task[isDone]'] = true;
-        
+
         $crawler = $logginUser->submit($form);
 
         if ($logginUser->getResponse()->isRedirection()) {
             $crawler = $logginUser->followRedirect();
-         }
+        }
 
         $this->assertResponseIsSuccessful();
-        $this->assertEquals(200,$logginUser->getResponse()->getStatusCode());
-
+        $this->assertEquals(200, $logginUser->getResponse()->getStatusCode());
     }
 
     public function testEditTaskFalse()
@@ -94,9 +92,9 @@ class TaskControllerTest extends WebTestCase
         $logginUser = $this->user();
 
         $taskRepository = static::getContainer()->get(TaskRepository::class);
-        $task = $taskRepository->findOneBy(['isDone'=> false]);
-    
-        $crawler = $logginUser->request('POST', '/task/'.$task->getId().'/edit');
+        $task = $taskRepository->findOneBy(['isDone' => false]);
+
+        $crawler = $logginUser->request('POST', '/task/' . $task->getId() . '/edit');
 
         // $crawler = $logginUser->request('POST', '/task/1/edit');
 
@@ -109,16 +107,16 @@ class TaskControllerTest extends WebTestCase
         $form['task[title]'] = ' Title test';
         $form['task[content]'] = 'Content test';
         $form['task[isDone]'] = false;
- 
+
         $crawler = $logginUser->submit($form);
 
         if ($logginUser->getResponse()->isRedirection()) {
             $crawler = $logginUser->followRedirect();
-         }
+        }
 
         $this->assertResponseIsSuccessful();
-        $this->assertEquals(200,$logginUser->getResponse()->getStatusCode());
-        $this->assertEquals(0,$crawler->filter('div.alert-failed')->count());
+        $this->assertEquals(200, $logginUser->getResponse()->getStatusCode());
+        $this->assertEquals(0, $crawler->filter('div.alert-failed')->count());
     }
 
     public function testEditTaskTrue()
@@ -126,9 +124,9 @@ class TaskControllerTest extends WebTestCase
         $logginUser = $this->user();
 
         $taskRepository = static::getContainer()->get(TaskRepository::class);
-        $task = $taskRepository->findOneBy(['isDone'=> true]);
-    
-        $crawler = $logginUser->request('POST', '/task/'.$task->getId().'/edit');
+        $task = $taskRepository->findOneBy(['isDone' => true]);
+
+        $crawler = $logginUser->request('POST', '/task/' . $task->getId() . '/edit');
 
         $buttonCrawlerNode = $crawler->selectButton('Update');
 
@@ -139,29 +137,29 @@ class TaskControllerTest extends WebTestCase
         $form['task[title]'] = ' Title test';
         $form['task[content]'] = 'Content test';
         $form['task[isDone]'] = true;
- 
+
         $crawler = $logginUser->submit($form);
 
         if ($logginUser->getResponse()->isRedirection()) {
             $crawler = $logginUser->followRedirect();
-         }
+        }
 
         $this->assertResponseIsSuccessful();
-        $this->assertEquals(200,$logginUser->getResponse()->getStatusCode());
-        $this->assertEquals(0,$crawler->filter('div.alert-failed')->count());
+        $this->assertEquals(200, $logginUser->getResponse()->getStatusCode());
+        $this->assertEquals(0, $crawler->filter('div.alert-failed')->count());
     }
 
 
 
     public function testDeleteTaskTodo()
     {
-        
+
         $logginUser = $this->user();
 
         $taskRepository = static::getContainer()->get(TaskRepository::class);
-        $task = $taskRepository->findOneBy(['isDone'=> false]);
-    
-        $crawler = $logginUser->request('GET', '/task/'.$task->getId());
+        $task = $taskRepository->findOneBy(['isDone' => false]);
+
+        $crawler = $logginUser->request('GET', '/task/' . $task->getId());
         // $crawler = $logginUser->request('POST', '/task/1');
 
         $buttonCrawlerNode = $crawler->selectButton('Supprimer');
@@ -169,41 +167,41 @@ class TaskControllerTest extends WebTestCase
         $form = $buttonCrawlerNode->form();
 
         $crawler = $logginUser->submit($form);
-                
+
         if ($logginUser->getResponse()->isRedirection()) {
             $crawler = $logginUser->followRedirect();
-         }
-        
+        }
+
          $this->assertResponseIsSuccessful();
-         $this->assertEquals(200,$logginUser->getResponse()->getStatusCode());
+         $this->assertEquals(200, $logginUser->getResponse()->getStatusCode());
 
         $this->assertSelectorTextContains('h1', 'Tâche non terminé');
-        $this->assertEquals(0,$crawler->filter('div.alert-failed')->count());
+        $this->assertEquals(0, $crawler->filter('div.alert-failed')->count());
     }
 
     public function testDeleteTaskUndo()
     {
-        
+
         $logginUser = $this->user();
 
         $taskRepository = static::getContainer()->get(TaskRepository::class);
-        $task = $taskRepository->findOneBy(['isDone'=>true]);
-    
-        $crawler = $logginUser->request('GET', '/task/'.$task->getId());
+        $task = $taskRepository->findOneBy(['isDone' => true]);
+
+        $crawler = $logginUser->request('GET', '/task/' . $task->getId());
 
         $buttonCrawlerNode = $crawler->selectButton('Supprimer');
         $form = $buttonCrawlerNode->form();
 
         $crawler = $logginUser->submit($form);
-                
+
         if ($logginUser->getResponse()->isRedirection()) {
             $crawler = $logginUser->followRedirect();
-         }
-        
+        }
+
          $this->assertResponseIsSuccessful();
-         $this->assertEquals(200,$logginUser->getResponse()->getStatusCode());
+         $this->assertEquals(200, $logginUser->getResponse()->getStatusCode());
 
         $this->assertSelectorTextContains('h1', 'Tâche terminé');
-        $this->assertEquals(0,$crawler->filter('div.alert-failed')->count());
+        $this->assertEquals(0, $crawler->filter('div.alert-failed')->count());
     }
 }

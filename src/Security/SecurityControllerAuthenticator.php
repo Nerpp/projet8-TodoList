@@ -24,7 +24,7 @@ class SecurityControllerAuthenticator extends AbstractLoginFormAuthenticator
 
     private UrlGeneratorInterface $urlGenerator;
 
-    
+
 
     public function __construct(UrlGeneratorInterface $urlGenerator)
     {
@@ -33,25 +33,24 @@ class SecurityControllerAuthenticator extends AbstractLoginFormAuthenticator
 
     public function authenticate(Request $request): PassportInterface
     {
-        
+
         $username = $request->request->get('username', '');
-       
+
         $request->getSession()->set(Security::LAST_USERNAME, $username);
-       
+
         return new Passport(
             new UserBadge($username),
             new PasswordCredentials($request->request->get('password', '')),
             [
                 new CsrfTokenBadge('authenticate', $request->get('_csrf_token')),
             ]
-
         );
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
 
-        
+
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             // @codeCoverageIgnoreStart
             return new RedirectResponse($targetPath);

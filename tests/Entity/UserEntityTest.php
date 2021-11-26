@@ -5,11 +5,9 @@ namespace App\Tests\Entity;
 use App\Entity\User;
 use PHPUnit\Framework\TestCase;
 
-
-
 class UserEntityTest extends TestCase
 {
-   
+
     public function testUserUnityEntity()
     {
         $user = new User();
@@ -19,7 +17,7 @@ class UserEntityTest extends TestCase
         $user->setEmail('test@phpunit.fr')
             ->setDisplayName('Test')
             ->setPassword('aJn:7852Q')
-            ->setIsVerified(True)
+            ->setIsVerified(true)
             ->setRoles(['ROLE_ADMIN'])
             ->setAskedAt($datetime)
             ;
@@ -27,10 +25,8 @@ class UserEntityTest extends TestCase
             $this->assertTrue($user->getEmail() === 'test@phpunit.fr');
             $this->assertTrue($user->getDisplayName() === 'Test');
             $this->assertTrue($user->getPassword() === 'aJn:7852Q');
-            $this->assertTrue($user->isVerified() === True);
-            $this->assertEquals(['ROLE_ADMIN','ROLE_USER'],$user->getRoles());
+            $this->assertTrue($user->isVerified() === true);
+            $this->assertEquals(['ROLE_ADMIN','ROLE_USER'], $user->getRoles());
             $this->assertTrue($user->getAskedAt() === $datetime);
-            
     }
-
 }

@@ -20,7 +20,7 @@ class RegistrationControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/register');
 
         $this->assertResponseIsSuccessful();
-        $this->assertEquals(200,$client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertSelectorTextContains('h1', 'Création Utilisateur');
     }
 
@@ -44,29 +44,25 @@ class RegistrationControllerTest extends WebTestCase
 
         $crawler = $client->submit($form);
 
-        $this->assertEquals(0,$crawler->filter('div.alert-danger')->count());
+        $this->assertEquals(0, $crawler->filter('div.alert-danger')->count());
 
         if ($client->getResponse()->isRedirection()) {
-           $crawler = $client->followRedirect();
+            $crawler = $client->followRedirect();
         }
         $this->assertResponseIsSuccessful();
-        $this->assertEquals(200,$client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
         // testVerifyUserEmail
         $userRepository = static::getContainer()->get(UserRepository::class);
         // retrieve the test user
         $grabUser = $userRepository->findOneByEmail('testControllerRegistration@gmail.com');
 
-        $crawler = $client->request('GET', "/verify/email/".$grabUser->getTokenValidation());
+        $crawler = $client->request('GET', "/verify/email/" . $grabUser->getTokenValidation());
 
         if ($client->getResponse()->isRedirection()) {
             $crawler = $client->followRedirect();
-         }
-         
-         $this->assertEquals(302,$client->getResponse()->getStatusCode());
+        }
 
+         $this->assertEquals(302, $client->getResponse()->getStatusCode());
     }
-
 }
-
-

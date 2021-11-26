@@ -5,7 +5,6 @@ namespace App\Tests\Controller;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use App\Repository\UserRepository;
 
-
 // php bin/phpunit --filter SecurityControllerTest > tests/functionnalTestsResult/SecurityControllerTest.html
 
 class SecurityControllerTest extends WebTestCase
@@ -15,29 +14,28 @@ class SecurityControllerTest extends WebTestCase
     {
         return static::createClient();
     }
-  
+
     public function testLogginIsUp(): void
     {
-    
+
         $client = $this->client();
         $client->request('GET', '/login');
-        
+
         $this->assertResponseIsSuccessful();
-        
+
         echo $client->getResponse()->getContent();
     }
 
     public function testLogginPage()
     {
-        
+
         $crawler = $this->client()->request('GET', '/login');
         $this->assertSelectorTextContains('h1', 'Connection');
-
     }
 
     public function testLoggin()
     {
-       
+
         $client = $this->client();
         $crawler = $client->request('GET', '/login');
 
@@ -48,7 +46,7 @@ class SecurityControllerTest extends WebTestCase
         // set values on a form object
         $form['username'] = 'francis@gmail.com';
         $form['password'] = '12345678';
-        
+
         $crawler = $client->submit($form);
 
         // autre alternative
@@ -58,14 +56,13 @@ class SecurityControllerTest extends WebTestCase
         // ]);
 
         if ($client->getResponse()->isRedirection()) {
-           $crawler = $client->followRedirect();
+            $crawler = $client->followRedirect();
         }
         $this->assertResponseIsSuccessful();
-        $this->assertEquals(200,$client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
         // si la connexion fonctionne il ne devrait pas trouver d'alert-danger premiere variable le nombre qu'il doit trouver, seconde variable la fonction qui va compter
-        $this->assertEquals(0,$crawler->filter('div.alert-danger')->count());
-
+        $this->assertEquals(0, $crawler->filter('div.alert-danger')->count());
     }
 
     public function testLogginAlsoConnected()
@@ -81,10 +78,10 @@ class SecurityControllerTest extends WebTestCase
 
         if ($client->getResponse()->isRedirection()) {
             $crawler = $client->followRedirect();
-         }
+        }
 
          $this->assertResponseIsSuccessful();
-         $this->assertEquals(200,$client->getResponse()->getStatusCode());
+         $this->assertEquals(200, $client->getResponse()->getStatusCode());
          $this->assertSelectorTextContains('h1', 'Bienvenue sur Todo List, l\'application vous permettant de gérer l\'ensemble de vos tâches sans effort !');
     }
 
@@ -98,9 +95,7 @@ class SecurityControllerTest extends WebTestCase
         $client = $client->loginUser($grabUser);
 
         $crawler = $client->request('GET', '/login');
-        
+
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        
     }
-  
 }

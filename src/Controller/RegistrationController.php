@@ -15,10 +15,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-
 class RegistrationController extends AbstractController
 {
-    
+
 
     public function __construct(EmailVerifier $emailVerifier)
     {
@@ -28,7 +27,7 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/register", name="app_register")
      */
-    public function register(MailerInterface $mailer,Request $request, UserPasswordHasherInterface $encoder): Response
+    public function register(MailerInterface $mailer, Request $request, UserPasswordHasherInterface $encoder): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -43,7 +42,7 @@ class RegistrationController extends AbstractController
                     $form->get('password')->getData()
                 )
             );
-            
+
             $hash = md5(random_int(100000, 9999999));
             $user->setTokenValidation($hash);
             $time = new \DateTime('+2 days');
@@ -70,18 +69,17 @@ class RegistrationController extends AbstractController
                     'hash' => $hash,
                 ]);
 
-                try {
-                    $mailer->send($email);
-                }
-                
+            try {
+                $mailer->send($email);
+            }
+
          // @codeCoverageIgnoreStart
-                catch (TransportExceptionInterface $e) {
-                  
-                    $this->addFlash('failed', 'Un probléme est survenue lors de l\'envoit du mail, veuillez vous réinscrire !');
-                    return $this->redirectToRoute('app_register');
-                }
+            catch (TransportExceptionInterface $e) {
+                $this->addFlash('failed', 'Un probléme est survenue lors de l\'envoit du mail, veuillez vous réinscrire !');
+                return $this->redirectToRoute('app_register');
+            }
          // @codeCoverageIgnoreEnd
-      
+
 
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($user);
@@ -98,12 +96,12 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/verify/email/{token}", name="app_verify_email")
      */
-    public function verifyUserEmail($token,Request $request, UserRepository $users): Response
+    public function verifyUserEmail($token, Request $request, UserRepository $users): Response
     {
-        
+
         $user = $users->findOneBy(['token_validation' => $token]);
 
-         
+
          // @codeCoverageIgnoreStart
         if (!$user) {
             // On renvoie une erreur 404
@@ -128,7 +126,7 @@ class RegistrationController extends AbstractController
         $entityManager->persist($user);
         $entityManager->flush();
         // $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        
+
         // validate email confirmation link, sets User::isVerified=true and persists
         // try {
         //     dd('test');
@@ -144,6 +142,4 @@ class RegistrationController extends AbstractController
 
         return $this->redirectToRoute('default');
     }
-
-
 }

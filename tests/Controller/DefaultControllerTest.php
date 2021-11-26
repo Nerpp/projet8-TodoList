@@ -9,7 +9,7 @@ use App\Repository\UserRepository;
 
 class DefaultControllerTest extends WebTestCase
 {
-    
+
     public function testDefaultisUp(): void
     {
         $client = static::createClient();
@@ -25,7 +25,6 @@ class DefaultControllerTest extends WebTestCase
         $client->request('GET', '/');
         $this->assertResponseIsSuccessful();
 
-        $this->assertEquals(200,$client->getResponse()->getStatusCode());
-  
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 }

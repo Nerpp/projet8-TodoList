@@ -8,7 +8,6 @@ use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
-
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -20,12 +19,12 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('displayName',TextType::class,[
+            ->add('displayName', TextType::class, [
                 'attr' => [
                 'placeholder' => 'Nom d\'affichage de l\'utilisateur'
                 ]
             ])
-            ->add('roles',ChoiceType::class,[
+            ->add('roles', ChoiceType::class, [
                 'required' => true,
                 'multiple' => false,
                 'expanded' => false,
@@ -33,9 +32,9 @@ class UserType extends AbstractType
                   'ROLE_USER' => 'ROLE_USER',
                   'ROLE_ADMIN' => 'ROLE_ADMIN'
                 ]
-               
+
             ])
-            ->add('password',RepeatedType::class, [
+            ->add('password', RepeatedType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'type' => PasswordType::class,
@@ -69,7 +68,7 @@ class UserType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('email',TextType::class,[
+            ->add('email', TextType::class, [
                 'attr' => [
                 'placeholder' => 'email@exemple.com'
                 ]
@@ -81,13 +80,13 @@ class UserType extends AbstractType
             ->addModelTransformer(new CallbackTransformer(
                 function ($rolesArray) {
                      // transform the array to a string
-                     return count($rolesArray)? $rolesArray[0]: null;
+                     return count($rolesArray) ? $rolesArray[0] : null;
                 },
                 function ($rolesString) {
                      // transform the string back to an array
                      return [$rolesString];
                 }
-        ));
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)

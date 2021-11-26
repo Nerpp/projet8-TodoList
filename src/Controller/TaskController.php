@@ -13,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/task")
- * 
+ *
  */
 class TaskController extends AbstractController
 {
@@ -24,7 +24,7 @@ class TaskController extends AbstractController
     public function index_todo(TaskRepository $taskRepository): Response
     {
         return $this->render('task/index.html.twig', [
-            'tasks' => $taskRepository->findBy(['isDone'=>0])
+            'tasks' => $taskRepository->findBy(['isDone' => 0])
         ]);
     }
 
@@ -35,7 +35,7 @@ class TaskController extends AbstractController
     public function index_ended(TaskRepository $taskRepository): Response
     {
         return $this->render('task/index.html.twig', [
-            'tasks' => $taskRepository->findBy(['isDone'=>1])
+            'tasks' => $taskRepository->findBy(['isDone' => 1])
         ]);
     }
 
@@ -55,7 +55,7 @@ class TaskController extends AbstractController
             $entityManager->persist($task);
             $entityManager->flush();
 
-            
+
             $this->addFlash('success', 'La tâche à bien été crée');
             return $this->redirectToRoute('task_todo', [], Response::HTTP_SEE_OTHER);
         }
@@ -86,8 +86,7 @@ class TaskController extends AbstractController
         $form = $this->createForm(TaskType::class, $task);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid() ) {
-            
+        if ($form->isSubmitted() && $form->isValid()) {
             if ($this->getUser() === $task->getUser() || $this->isGranted('ROLE_ADMIN')) {
                 $this->getDoctrine()->getManager()->flush();
             }
@@ -109,8 +108,7 @@ class TaskController extends AbstractController
      */
     public function delete(Request $request, Task $task): Response
     {
-        if ($this->getUser() === $task->getUser() && $this->isCsrfTokenValid('delete'.$task->getId(), $request->request->get('_token')) || $this->isGranted('ROLE_ADMIN') &&  $this->isCsrfTokenValid('delete'.$task->getId(), $request->request->get('_token'))) {
-
+        if ($this->getUser() === $task->getUser() && $this->isCsrfTokenValid('delete' . $task->getId(), $request->request->get('_token')) || $this->isGranted('ROLE_ADMIN') &&  $this->isCsrfTokenValid('delete' . $task->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($task);
             $entityManager->flush();

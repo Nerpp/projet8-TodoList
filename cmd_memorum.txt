@@ -1,11 +1,17 @@
+
+#Test unitaire :
 code coverage:
 php -d xdebug.mode=coverage bin/phpunit --coverage-html web\TestCoverage
 
-
+test par fichier avec généeration de fichier html
 php bin/phpunit --filter RegistrationControllerTest > tests/functionnalTestsResult/RegistrationControllerTest.html
 
-symfony console make:test
 
+#Test entity
 cmd : php bin/phpunit --filter testUserUnityEntity
+cmd : php bin/phpunit --testdox
 
- cmd : php bin/phpunit --testdox
+ #php_sniffer :
+
+verification et correction psr-12
+ php phpcbf.phar -h

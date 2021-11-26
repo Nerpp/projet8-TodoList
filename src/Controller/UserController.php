@@ -23,7 +23,7 @@ class UserController extends AbstractController
     {
         $this->encoder = $encoder;
     }
-    
+
     /**
      * @Route("/", name="user_index", methods={"GET"})
      */
@@ -49,7 +49,7 @@ class UserController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $user->setRoles($user->getRoles());
             $user->setIsVerified(1);
-            $user->setPassword($this->encoder->hashPassword($user,$user->getPassword()));
+            $user->setPassword($this->encoder->hashPassword($user, $user->getPassword()));
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -100,7 +100,7 @@ class UserController extends AbstractController
      */
     public function delete(Request $request, User $user): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($user);
             $entityManager->flush();

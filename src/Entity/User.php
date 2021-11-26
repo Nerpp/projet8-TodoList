@@ -26,7 +26,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $id;
 
-  
+
     /**
      * @ORM\Column(type="json")
      */
@@ -91,7 +91,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->displayName;
     }
     // @codeCoverageIgnoreEnd
-    
+
     public function __construct()
     {
         $this->task = new ArrayCollection();
@@ -257,5 +257,4 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
 }

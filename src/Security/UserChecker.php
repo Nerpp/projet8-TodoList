@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Security;
 
 use App\Entity\User as AppUser;
@@ -12,32 +13,30 @@ class UserChecker implements UserCheckerInterface
     public function checkPreAuth(UserInterface $user): void
     {
         if (!$user instanceof AppUser) {
-            // @codeCoverageIgnoreStart
+// @codeCoverageIgnoreStart
             return;
-            // @codeCoverageIgnoreEnd
+// @codeCoverageIgnoreEnd
         }
-        
     }
 
     public function checkPostAuth(UserInterface $user): void
     {
         if (!$user instanceof AppUser) {
-            // @codeCoverageIgnoreStart
+// @codeCoverageIgnoreStart
             return;
-            // @codeCoverageIgnoreEnd
+// @codeCoverageIgnoreEnd
         }
         if ($user->getEmail() === 'anonyme@gmail.com') {
-            // @codeCoverageIgnoreStart
+// @codeCoverageIgnoreStart
             throw new CustomUserMessageAccountStatusException('Je ne comprend pas la question.');
-            // @codeCoverageIgnoreEnd
+// @codeCoverageIgnoreEnd
         }
 
-        if (!$user->isVerified() ) {
-            // the message passed to this exception is meant to be displayed to the user
+        if (!$user->isVerified()) {
+// the message passed to this exception is meant to be displayed to the user
             // @codeCoverageIgnoreStart
             throw new CustomUserMessageAccountStatusException('Votre compte n\'a pas été verifié.');
             // @codeCoverageIgnoreEnd
         }
-      
     }
 }
