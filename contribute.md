@@ -58,6 +58,19 @@ for keep your project Sync with the original project see the GitHub doc : https:
 
 
 
+Clone
+
+Installer le projet voir read me
+
+Standard psr-12 verifier que le code est bien formatté -> code sniffer
+
+créer des tests et faire en sorte qu'ils passent
+
+
+comment faire la pull request nom issue {
+et codacy doit avoir la note A ou B}
+
+
 
 
 

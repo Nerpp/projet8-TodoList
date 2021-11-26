@@ -52,11 +52,7 @@ class RegistrationControllerTest extends WebTestCase
         $this->assertResponseIsSuccessful();
         $this->assertEquals(200,$client->getResponse()->getStatusCode());
 
-    }
-
-    public function testVerifyUserEmail()
-    {
-        $client = $this->client();
+        // testVerifyUserEmail
         $userRepository = static::getContainer()->get(UserRepository::class);
         // retrieve the test user
         $grabUser = $userRepository->findOneByEmail('testControllerRegistration@gmail.com');
