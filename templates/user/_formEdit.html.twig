@@ -31,6 +31,7 @@
 			</div>
 			<div class="text-center p-4">
 				<button class="btn bg-success">{{ button_label|default('Mettre à jour') }}</button>
+				 <input type="hidden" name="_token" value="{{ csrf_token('user_edit') }}">
 			</div>
 		</div>
 		{{ form_end(form) }}

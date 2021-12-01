@@ -11,25 +11,25 @@ use Symfony\Component\Routing\Annotation\Route;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Security\Core\Security;
+
 
 /**
  * @Route("/user")
  */
 class UserController extends AbstractController
 {
-    public function __construct(UserPasswordHasherInterface $encoder,Security $security)
+    public function __construct(UserPasswordHasherInterface $encoder)
     {
         $this->encoder = $encoder;
-        $this->security = $security;
     }
 
     /**
-     * @Route("/", name="user_index", methods={"GET"})
+     * @Route("/user_index", name="user_index", methods={"GET"})
      */
     public function index(UserRepository $userRepository): Response
     {
-        if (!$this->isGranted('view_user',$this->security->getUser())) {
+        if (!$this->isGranted('view_user',$this->getUser())) {
+            $this->addFlash('error', 'Vous n\'avez pas les droits nécéssaire pour visualiser cette page');
             return $this->redirectToRoute('default');
         }
 
@@ -45,7 +45,8 @@ class UserController extends AbstractController
      */
     public function new(Request $request): Response
     {
-        if (!$this->isGranted('create_user',$this->security->getUser())) {
+        if (!$this->isGranted('create_user',$this->getUser())) {
+            $this->addFlash('error', 'Vous n\'avez pas les droits nécéssaire pour visualiser cette page');
             return $this->redirectToRoute('default');
         }
 
@@ -53,7 +54,7 @@ class UserController extends AbstractController
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() && $this->isCsrfTokenValid('user_new', $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $user->setRoles($user->getRoles());
             $user->setIsVerified(1);
@@ -76,7 +77,8 @@ class UserController extends AbstractController
      */
     public function show(User $user): Response
     {
-        if (!$this->isGranted('view_user',$this->security->getUser())) {
+        if (!$this->isGranted('view_user',$this->getUser())) {
+            $this->addFlash('error', 'Vous n\'avez pas les droits nécéssaire pour visualiser cette page');
             return $this->redirectToRoute('default');
         }
 
@@ -90,7 +92,8 @@ class UserController extends AbstractController
      */
     public function edit(Request $request, User $user): Response
     {
-        if (!$this->isGranted('edit_user',$this->security->getUser())) {
+        if (!$this->isGranted('edit_user',$this->getUser())) {
+            $this->addFlash('error', 'Vous n\'avez pas les droits nécéssaire pour visualiser cette page');
             return $this->redirectToRoute('default');
         }
 
@@ -98,7 +101,7 @@ class UserController extends AbstractController
         $form->remove('password');
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() && $this->isCsrfTokenValid('user_edit', $request->request->get('_token'))) {
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success', 'L\'utilisateur à bien été édité');
@@ -116,7 +119,8 @@ class UserController extends AbstractController
      */
     public function delete(Request $request, User $user): Response
     {
-        if (!$this->isGranted('delete_user',$this->security->getUser())) {
+        if (!$this->isGranted('delete_user',$this->getUser())) {
+            $this->addFlash('error', 'Vous n\'avez pas les droits nécéssaire pour utiliser cette option');
             return $this->redirectToRoute('default');
         }
 

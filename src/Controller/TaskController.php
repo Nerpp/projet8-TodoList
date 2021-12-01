@@ -18,11 +18,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class TaskController extends AbstractController
 {
     /**
-     * @Route("/todo", name="task_todo", methods={"GET"})
-     * @IsGranted("ROLE_USER")
+     * @Route("/todo", name="task_todo", methods={"GET","POST"})
      */
     public function index_todo(TaskRepository $taskRepository): Response
     {
+      
+        if (!$this->isGranted('browser_user',$this->getUser())) {
+            $this->addFlash('error', 'Vous n\'avez pas les droits nécéssaire pour visualiser cette page');
+            return $this->redirectToRoute('app_login');
+        }
+
         return $this->render('task/index.html.twig', [
             'tasks' => $taskRepository->findBy(['isDone' => 0])
         ]);
@@ -30,10 +35,14 @@ class TaskController extends AbstractController
 
     /**
      * @Route("/ended", name="task_ended", methods={"GET"})
-     * @IsGranted("ROLE_USER")
      */
     public function index_ended(TaskRepository $taskRepository): Response
     {
+        if (!$this->isGranted('browser_user',$this->getUser())) {
+            $this->addFlash('error', 'Vous n\'avez pas les droits nécéssaire pour visualiser cette page');
+            return $this->redirectToRoute('app_login');
+        }
+
         return $this->render('task/index.html.twig', [
             'tasks' => $taskRepository->findBy(['isDone' => 1])
         ]);
@@ -41,15 +50,19 @@ class TaskController extends AbstractController
 
     /**
      * @Route("/new", name="task_new", methods={"GET","POST"})
-     * @IsGranted("ROLE_USER")
      */
     public function new(Request $request): Response
     {
+        if (!$this->isGranted('create_task',$this->getUser())) {
+            $this->addFlash('error', 'Vous n\'avez pas les droits nécéssaire pour visualiser cette page');
+            return $this->redirectToRoute('app_login');
+        }
+
         $task = new Task();
         $form = $this->createForm(TaskType::class, $task);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid() && $this->isGranted('ROLE_USER')) {
+        if ($form->isSubmitted() && $form->isValid()  && $this->isCsrfTokenValid('task_entity' . $task->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $task->setUser($this->getUser());
             $entityManager->persist($task);
@@ -68,10 +81,14 @@ class TaskController extends AbstractController
 
     /**
      * @Route("/{id}", name="task_show", methods={"GET"})
-     * @IsGranted("ROLE_USER")
      */
     public function show(Task $task): Response
     {
+        if (!$this->isGranted('view_task',$task)) {
+            $this->addFlash('error', 'Vous n\'avez pas les droits nécéssaire pour visualiser cette page');
+            return $this->redirectToRoute('app_login');
+        }
+
         return $this->render('task/show.html.twig', [
             'task' => $task,
         ]);
@@ -83,10 +100,16 @@ class TaskController extends AbstractController
      */
     public function edit(Request $request, Task $task): Response
     {
+
+        if (!$this->isGranted('edit_task',$task)) {
+            $this->addFlash('error', 'Vous n\'avez pas les droits nécéssaire pour editer ce TODO');
+            return $this->redirectToRoute('app_login');
+        }
+
         $form = $this->createForm(TaskType::class, $task);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() && $this->isCsrfTokenValid('task_entity', $request->request->get('_token'))) {
             if ($this->getUser() === $task->getUser() || $this->isGranted('ROLE_ADMIN')) {
                 $this->getDoctrine()->getManager()->flush();
             }
@@ -104,11 +127,15 @@ class TaskController extends AbstractController
 
     /**
      * @Route("/{id}", name="task_delete", methods={"POST"})
-     * @IsGranted("ROLE_USER")
      */
     public function delete(Request $request, Task $task): Response
     {
-        if ($this->getUser() === $task->getUser() && $this->isCsrfTokenValid('delete' . $task->getId(), $request->request->get('_token')) || $this->isGranted('ROLE_ADMIN') &&  $this->isCsrfTokenValid('delete' . $task->getId(), $request->request->get('_token'))) {
+        if (!$this->isGranted('delete_task',$task)) {
+            $this->addFlash('error', 'Vous n\'avez pas les droits nécéssaire pour editer ce TODO');
+            return $this->redirectToRoute('app_login');
+        }
+
+        if ($this->isCsrfTokenValid('delete' . $task->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($task);
             $entityManager->flush();

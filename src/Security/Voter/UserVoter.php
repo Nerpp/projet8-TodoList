@@ -2,9 +2,6 @@
 
 namespace App\Security\Voter;
 
-
-use App\Entity\User;
-
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -12,13 +9,15 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 // tuto https://www.youtube.com/watch?v=wSh9zlL2xzc
 
-class UserControllerVoter extends Voter
+class UserVoter extends Voter
 {
     const CREATE_USER = 'create_user';
     const DELETE_USER = 'delete_user';
     const EDIT_USER = 'edit_user';
     const VIEW_USER = 'view_user';
+    // task constant
     const BROWSER_USER = 'browser_user';
+    const CREATE_TASK = 'create_task';
 
     private $security;
 
@@ -31,7 +30,7 @@ class UserControllerVoter extends Voter
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
-        return in_array($attribute, [self::CREATE_USER,self::DELETE_USER,self::EDIT_USER,self::VIEW_USER,self::BROWSER_USER])
+        return in_array($attribute, [self::CREATE_USER,self::DELETE_USER,self::EDIT_USER,self::VIEW_USER,self::BROWSER_USER,self::CREATE_TASK])
             && $subject instanceof \App\Entity\User;
     }
 
@@ -69,14 +68,17 @@ class UserControllerVoter extends Voter
         return false;
     }
 
+    private function createTask()
+    {
+        if ($this->security->isGranted('ROLE_USER')) {
+            return true;
+        }
+       
+        return false;   
+    }
 
     private function browserUser()
     {
-      
-        if ($this->security->getUser()->getEmail() === 'anonyme@gmail.com') {
-            return false;
-        }
-        
         if ($this->security->isGranted('ROLE_USER')) {
             return true;
         }

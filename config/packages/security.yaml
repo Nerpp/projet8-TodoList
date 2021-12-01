@@ -7,7 +7,6 @@ security:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
         App\Entity\User:
             algorithm: auto
-
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         # used to reload user from session & other features (e.g. switch_user)
@@ -33,6 +32,9 @@ security:
                 path: app_logout
                 # where to redirect after logout
                 target: app_login
+    # access_decision_manager:
+    #     strategy: unanimous
+    #     allow_if_all_abstain: false
            
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
