@@ -15,7 +15,7 @@ class UserVoter extends Voter
     const DELETE_USER = 'delete_user';
     const EDIT_USER = 'edit_user';
     const VIEW_USER = 'view_user';
-    // task constant
+    // user authorisation on task controller
     const BROWSER_USER = 'browser_user';
     const CREATE_TASK = 'create_task';
 
@@ -44,6 +44,9 @@ class UserVoter extends Voter
   
         // ... (check conditions and return true to grant permission) ...
         switch ($attribute) {
+            case self::CREATE_TASK:
+                return $this->createTask();
+                break;
             case self::BROWSER_USER:
                 return $this->browserUser();
                 break;
@@ -68,6 +71,7 @@ class UserVoter extends Voter
         return false;
     }
 
+    // task Controller
     private function createTask()
     {
         if ($this->security->isGranted('ROLE_USER')) {
@@ -86,7 +90,7 @@ class UserVoter extends Voter
         return false;
     }
 
-
+    // user Controller
     // for see the users details
     private function viewUser()
     {
