@@ -4,24 +4,24 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
-// use App\Form\UserEditType;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * @Route("/user")
- * @IsGranted("ROLE_ADMIN")
  */
 class UserController extends AbstractController
 {
-    public function __construct(UserPasswordHasherInterface $encoder)
+    public function __construct(UserPasswordHasherInterface $encoder,Security $security)
     {
         $this->encoder = $encoder;
+        $this->security = $security;
     }
 
     /**
@@ -29,6 +29,10 @@ class UserController extends AbstractController
      */
     public function index(UserRepository $userRepository): Response
     {
+        if (!$this->isGranted('view_user',$this->security->getUser())) {
+            return $this->redirectToRoute('default');
+        }
+
         return $this->render('user/index.html.twig', [
             'users' => $userRepository->findBy(
                 ['isVerified' => true]
@@ -41,6 +45,10 @@ class UserController extends AbstractController
      */
     public function new(Request $request): Response
     {
+        if (!$this->isGranted('create_user',$this->security->getUser())) {
+            return $this->redirectToRoute('default');
+        }
+
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
@@ -68,6 +76,10 @@ class UserController extends AbstractController
      */
     public function show(User $user): Response
     {
+        if (!$this->isGranted('view_user',$this->security->getUser())) {
+            return $this->redirectToRoute('default');
+        }
+
         return $this->render('user/show.html.twig', [
             'user' => $user,
         ]);
@@ -78,6 +90,10 @@ class UserController extends AbstractController
      */
     public function edit(Request $request, User $user): Response
     {
+        if (!$this->isGranted('edit_user',$this->security->getUser())) {
+            return $this->redirectToRoute('default');
+        }
+
         $form = $this->createForm(UserType::class, $user);
         $form->remove('password');
         $form->handleRequest($request);
@@ -100,6 +116,10 @@ class UserController extends AbstractController
      */
     public function delete(Request $request, User $user): Response
     {
+        if (!$this->isGranted('delete_user',$this->security->getUser())) {
+            return $this->redirectToRoute('default');
+        }
+
         if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($user);

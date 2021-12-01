@@ -62,10 +62,9 @@ Clone
 
 Installer le projet voir read me
 
-Standard psr-12 verifier que le code est bien formatté -> code sniffer
-
 créer des tests et faire en sorte qu'ils passent
 
+Standard psr-12 verifier que le code est bien formatté -> code sniffer
 
 comment faire la pull request nom issue {
 et codacy doit avoir la note A ou B}
