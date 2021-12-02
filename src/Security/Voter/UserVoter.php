@@ -21,10 +21,12 @@ class UserVoter extends Voter
     const CREATE_TASK = 'create_task';
 
     private $security;
+    
 
     public function __construct(Security $security)
     {
         $this->security = $security;
+        $this->tokenUser = $this->security->getUser();
     }
 
     protected function supports(string $attribute, $subject): bool
@@ -75,15 +77,25 @@ class UserVoter extends Voter
     // task Controller
     private function createTask()
     {
-        if ($this->security->isGranted('ROLE_USER')) {
-            return true;
-        }
+         // by default each member verified get the role User
+         if (!$this->tokenUser->isVerified()) {
+            return false;
+         }
+ 
+         if ($this->security->isGranted('ROLE_USER')) {
+             return true;
+         }
        
         return false;   
     }
 
     private function browserUser()
     {
+        // by default each member verified get the role User
+        if (!$this->tokenUser->isVerified()) {
+           return false;
+        }
+
         if ($this->security->isGranted('ROLE_USER')) {
             return true;
         }
@@ -95,6 +107,10 @@ class UserVoter extends Voter
     // for see the users details
     private function viewUser()
     {
+        if (!$this->tokenUser->isVerified()) {
+            return false;
+         }
+
         if ($this->security->isGranted('ROLE_ADMIN')) {
             return true;
         }
@@ -104,6 +120,10 @@ class UserVoter extends Voter
 
     private function editUser()
     {
+        if (!$this->tokenUser->isVerified()) {
+            return false;
+         }
+
         if ($this->security->isGranted('ROLE_ADMIN')) {
             return true;
         }
@@ -113,6 +133,10 @@ class UserVoter extends Voter
 
     private function createUser()
     {
+        if (!$this->tokenUser->isVerified()) {
+            return false;
+         }
+
         if ($this->security->isGranted('ROLE_ADMIN')) {
             return true;
         }
@@ -122,6 +146,10 @@ class UserVoter extends Voter
 
     private function deleteUser()
     {
+        if (!$this->tokenUser->isVerified()) {
+            return false;
+         }
+
         if ($this->security->isGranted('ROLE_ADMIN')) {
             return true;
         }

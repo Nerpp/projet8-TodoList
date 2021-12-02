@@ -21,6 +21,7 @@ class TaskVoter extends Voter
     public function __construct(Security $security)
     {
         $this->security = $security;
+        $this->tokenUser = $this->security->getUser();
     }
 
     protected function supports(string $attribute, $task): bool
@@ -58,15 +59,23 @@ class TaskVoter extends Voter
 
     private function viewTask()
     {
-        if ($this->security->isGranted('ROLE_USER')) {
-            return true;
-        }
+        if (!$this->tokenUser->isVerified()) {
+            return false;
+         }
+ 
+         if ($this->security->isGranted('ROLE_USER')) {
+             return true;
+         }
        
         return false;
     }
 
     private function editTask($task)
     {
+        if (!$this->tokenUser->isVerified()) {
+            return false;
+         }
+
         if ($task->getUser() === $this->security->getUser() ) {
            return true;
         }
@@ -80,6 +89,10 @@ class TaskVoter extends Voter
 
     private function deleteTask($task)
     {
+        if (!$this->tokenUser->isVerified()) {
+            return false;
+         }
+
         if ($task->getUser() === $this->security->getUser() ) {
             return true;
          }

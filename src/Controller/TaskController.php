@@ -124,12 +124,12 @@ class TaskController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="task_delete", methods={"POST"})
+     * @Route("/delete/{id}", name="task_delete", methods={"POST"})
      */
     public function delete(Request $request, Task $task): Response
     {
         if (!$this->isGranted('delete_task',$task)) {
-            $this->addFlash('error', 'Vous n\'avez pas les droits nécéssaire pour editer ce TODO');
+            $this->addFlash('error', 'Vous n\'avez pas les droits nécéssaire pour éffacer ce TODO');
             return $this->redirectToRoute('app_login');
         }
 
