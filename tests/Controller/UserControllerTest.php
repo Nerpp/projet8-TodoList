@@ -22,7 +22,7 @@ class UserControllerTest extends WebTestCase
 
     public function testUserIndex(): void
     {
-        $crawler = $this->user()->request('GET', '/user/');
+        $crawler = $this->user()->request('GET', '/user/user_index');
 
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('h1', 'Liste des Utilisateurs');

@@ -40,16 +40,20 @@
 		<div class="d-flex justify-content-center p-4">
 			{{ task.content }}
 		</div>
-		{% if (app.user == task.user) or (is_granted('ROLE_ADMIN') and task.user.displayName == 'Anonyme')  %}
+		
 			<div class="d-flex justify-content-around">
+			{% if is_granted('edit_task',task)  %}
 				<div class="">
 					<a href="{{ path('task_edit', {'id': task.id}) }}">éditer</a>
 				</div>
+			{% endif %}
+			{% if is_granted('delete_task',task) %}
 				<div class="d-flex justify-content-center bg-warning text-dark col-1">
 					{{ include('task/_delete_form.html.twig') }}
 				</div>
+			{% endif %}
 			</div>
-		{% endif %}
+		
 		<div class="">
 			{% if task.isDone %}
 				<a href="{{ path('task_ended') }}">retour index</a>

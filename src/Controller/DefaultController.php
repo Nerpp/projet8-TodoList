@@ -19,7 +19,6 @@ class DefaultController extends AbstractController
     {
        
         if (!$this->isGranted('browser_user',$this->getUser())) {
-            $this->addFlash('error', 'Vous devez vous identifiez pour accéder au site');
             return $this->redirectToRoute('app_login');
         }
 

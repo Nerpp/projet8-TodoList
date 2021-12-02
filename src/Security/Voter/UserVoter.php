@@ -15,8 +15,9 @@ class UserVoter extends Voter
     const DELETE_USER = 'delete_user';
     const EDIT_USER = 'edit_user';
     const VIEW_USER = 'view_user';
-    // user authorisation on task controller
+    // browsing authorisation
     const BROWSER_USER = 'browser_user';
+    // user authorisation on task controller
     const CREATE_TASK = 'create_task';
 
     private $security;

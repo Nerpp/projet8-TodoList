@@ -17,9 +17,11 @@
 
 {% block body %}
 	<div class="container">
+		{% if is_granted('create_task', app.user) %}
 		<div class="d-flex justify-content-end">
 			<a href="{{ path('task_new') }}">Créer une nouvelle tâche</a>
 		</div>
+		{% endif %}
 		{% for task in tasks %}
 			<div class="d-flex align-items-start pt-3">
 				<div class="col-3">
@@ -52,8 +54,10 @@
 						{% endif %}
 					</div>
 					<div class="">
-						<a href="{{ path('task_show', {'id': task.id}) }}">Afficher</a>
-						{% if (app.user == task.user) or (is_granted('ROLE_ADMIN') and task.user.displayName == 'Anonyme') %}
+						{% if is_granted('view_task',task) %}
+							<a href="{{ path('task_show', {'id': task.id}) }}">Afficher</a>
+						{% endif %}
+						{% if is_granted('delete_task',task) %}
 							<a href="{{ path('task_edit', {'id': task.id}) }}">Editer</a>
 						{% endif %}
 					</div>

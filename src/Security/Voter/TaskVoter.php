@@ -71,7 +71,7 @@ class TaskVoter extends Voter
            return true;
         }
 
-        if ($this->security->isGranted('ROLE_ADMIN')) {
+        if ($this->security->isGranted('ROLE_ADMIN') && $task->getUser()->getUserIdentifier() === "anonyme@gmail.com") {
             return true;
         }
        
@@ -84,7 +84,7 @@ class TaskVoter extends Voter
             return true;
          }
  
-         if ($this->security->isGranted('ROLE_ADMIN')) {
+         if ($this->security->isGranted('ROLE_ADMIN') && $task->getUser()->getUserIdentifier() === "anonyme@gmail.com") {
              return true;
          }
         
