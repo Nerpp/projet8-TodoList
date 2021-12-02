@@ -111,11 +111,11 @@ class UserVoter extends Voter
             return false;
          }
 
-        if ($this->security->isGranted('ROLE_ADMIN')) {
-            return true;
+        if (!$this->security->isGranted('ROLE_ADMIN')) {
+            return false;
         }
        
-        return false;
+        return true;
     }
 
     private function editUser()
@@ -124,11 +124,11 @@ class UserVoter extends Voter
             return false;
          }
 
-        if ($this->security->isGranted('ROLE_ADMIN')) {
-            return true;
+        if (!$this->security->isGranted('ROLE_ADMIN')) {
+            return false;
         }
        
-        return false;
+        return true;
     }
 
     private function createUser()
@@ -137,11 +137,11 @@ class UserVoter extends Voter
             return false;
          }
 
-        if ($this->security->isGranted('ROLE_ADMIN')) {
-            return true;
+        if (!$this->security->isGranted('ROLE_ADMIN')) {
+            return false;
         }
 
-        return false;
+        return true;
     }
 
     private function deleteUser()
@@ -150,10 +150,10 @@ class UserVoter extends Voter
             return false;
          }
 
-        if ($this->security->isGranted('ROLE_ADMIN')) {
-            return true;
+        if (!$this->security->isGranted('ROLE_ADMIN')) {
+            return false;
         }
 
-        return false;
+        return true;
     }
 }

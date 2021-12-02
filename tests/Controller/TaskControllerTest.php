@@ -82,7 +82,6 @@ class TaskControllerTest extends WebTestCase
             $crawler = $client->followRedirect();
         }
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        
     }
 
     public function testIndexEnded(): void
