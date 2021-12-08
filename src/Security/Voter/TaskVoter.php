@@ -15,7 +15,7 @@ class TaskVoter extends Voter
     const EDIT_TASK = 'edit_task';
     // delete task
     const DELETE_TASK = 'delete_task';
-    
+
     private $security;
 
     public function __construct(Security $security)
@@ -36,9 +36,11 @@ class TaskVoter extends Voter
     {
         $user = $token->getUser();
         // if the user is anonymous, do not grant access
+        // @codeCoverageIgnoreStart
         if (!$user instanceof UserInterface) {
             return false;
         }
+        // @codeCoverageIgnoreEnd
 
         // ... (check conditions and return true to grant permission) ...
         switch ($attribute) {
@@ -54,36 +56,34 @@ class TaskVoter extends Voter
                 break;
         }
 
+        // @codeCoverageIgnoreStart
         return false;
+        // @codeCoverageIgnoreEnd
     }
 
     private function viewTask()
     {
         if (!$this->tokenUser->isVerified()) {
             return false;
-         }
- 
-         if ($this->security->isGranted('ROLE_USER')) {
-             return true;
-         }
-       
-        return false;
+        }
+
+        return true;
     }
 
     private function editTask($task)
     {
         if (!$this->tokenUser->isVerified()) {
             return false;
-         }
+        }
 
-        if ($task->getUser() === $this->security->getUser() ) {
-           return true;
+        if ($task->getUser() === $this->security->getUser()) {
+            return true;
         }
 
         if ($this->security->isGranted('ROLE_ADMIN') && $task->getUser()->getUserIdentifier() === "anonyme@gmail.com") {
             return true;
         }
-       
+
         return false;
     }
 
@@ -91,16 +91,16 @@ class TaskVoter extends Voter
     {
         if (!$this->tokenUser->isVerified()) {
             return false;
-         }
+        }
 
-        if ($task->getUser() === $this->security->getUser() ) {
+        if ($task->getUser() === $this->security->getUser()) {
             return true;
-         }
- 
-         if ($this->security->isGranted('ROLE_ADMIN') && $task->getUser()->getUserIdentifier() === "anonyme@gmail.com") {
-             return true;
-         }
-        
+        }
+
+        if ($this->security->isGranted('ROLE_ADMIN') && $task->getUser()->getUserIdentifier() === "anonyme@gmail.com") {
+            return true;
+        }
+
          return false;
     }
 }

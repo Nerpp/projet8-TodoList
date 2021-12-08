@@ -14,4 +14,4 @@ cmd : php bin/phpunit --testdox
  #php_sniffer :
 
 verification et correction psr-12
- php phpcbf.phar -h
+vendor/bin/phpcs --standard=PSR12 src

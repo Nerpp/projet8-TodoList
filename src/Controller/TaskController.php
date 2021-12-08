@@ -21,8 +21,8 @@ class TaskController extends AbstractController
      */
     public function index_todo(TaskRepository $taskRepository): Response
     {
-      
-        if (!$this->isGranted('browser_user',$this->getUser())) {
+
+        if (!$this->isGranted('browser_user', $this->getUser())) {
             $this->addFlash('error', 'Vous n\'avez pas les droits nécéssaire pour visualiser cette page');
             return $this->redirectToRoute('app_login');
         }
@@ -37,7 +37,7 @@ class TaskController extends AbstractController
      */
     public function index_ended(TaskRepository $taskRepository): Response
     {
-        if (!$this->isGranted('browser_user',$this->getUser())) {
+        if (!$this->isGranted('browser_user', $this->getUser())) {
             $this->addFlash('error', 'Vous n\'avez pas les droits nécéssaire pour visualiser cette page');
             return $this->redirectToRoute('app_login');
         }
@@ -52,7 +52,7 @@ class TaskController extends AbstractController
      */
     public function new(Request $request): Response
     {
-        if (!$this->isGranted('create_task',$this->getUser())) {
+        if (!$this->isGranted('create_task', $this->getUser())) {
             $this->addFlash('error', 'Vous n\'avez pas les droits nécéssaire pour visualiser cette page');
             return $this->redirectToRoute('app_login');
         }
@@ -83,7 +83,7 @@ class TaskController extends AbstractController
      */
     public function show(Task $task): Response
     {
-        if (!$this->isGranted('view_task',$task)) {
+        if (!$this->isGranted('view_task', $task)) {
             $this->addFlash('error', 'Vous n\'avez pas les droits nécéssaire pour visualiser cette page');
             return $this->redirectToRoute('app_login');
         }
@@ -99,7 +99,7 @@ class TaskController extends AbstractController
     public function edit(Request $request, Task $task): Response
     {
 
-        if (!$this->isGranted('edit_task',$task)) {
+        if (!$this->isGranted('edit_task', $task)) {
             $this->addFlash('error', 'Vous n\'avez pas les droits nécéssaire pour editer ce TODO');
             return $this->redirectToRoute('app_login');
         }
@@ -128,7 +128,7 @@ class TaskController extends AbstractController
      */
     public function delete(Request $request, Task $task): Response
     {
-        if (!$this->isGranted('delete_task',$task)) {
+        if (!$this->isGranted('delete_task', $task)) {
             $this->addFlash('error', 'Vous n\'avez pas les droits nécéssaire pour éffacer ce TODO');
             return $this->redirectToRoute('app_login');
         }

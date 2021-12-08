@@ -21,7 +21,7 @@ class UserVoter extends Voter
     const CREATE_TASK = 'create_task';
 
     private $security;
-    
+
 
     public function __construct(Security $security)
     {
@@ -41,10 +41,12 @@ class UserVoter extends Voter
     {
         $user = $token->getUser();
         // if the user is anonymous, do not grant access
+        // @codeCoverageIgnoreStart
         if (!$user instanceof UserInterface) {
             return false;
         }
-  
+        // @codeCoverageIgnoreEnd
+
         // ... (check conditions and return true to grant permission) ...
         switch ($attribute) {
             case self::CREATE_TASK:
@@ -59,7 +61,7 @@ class UserVoter extends Voter
                 break;
             case self::EDIT_USER:
                     // logic to determine if the user can CREATE an user
-                    return $this->editUser();
+                return $this->editUser();
                     break;
             case self::DELETE_USER:
                 // logic to determine if the user can DELETE an user
@@ -71,36 +73,31 @@ class UserVoter extends Voter
                 break;
         }
 
+        // @codeCoverageIgnoreStart
         return false;
+        // @codeCoverageIgnoreEnd
     }
 
     // task Controller
     private function createTask()
     {
          // by default each member verified get the role User
-         if (!$this->tokenUser->isVerified()) {
+        if (!$this->tokenUser->isVerified()) {
             return false;
-         }
- 
-         if ($this->security->isGranted('ROLE_USER')) {
-             return true;
-         }
-       
-        return false;   
+        }
+
+        
+        return true;
     }
 
     private function browserUser()
     {
         // by default each member verified get the role User
         if (!$this->tokenUser->isVerified()) {
-           return false;
+            return false;
         }
 
-        if ($this->security->isGranted('ROLE_USER')) {
-            return true;
-        }
-       
-        return false;
+        return true;
     }
 
     // user Controller
@@ -109,12 +106,12 @@ class UserVoter extends Voter
     {
         if (!$this->tokenUser->isVerified()) {
             return false;
-         }
+        }
 
         if (!$this->security->isGranted('ROLE_ADMIN')) {
             return false;
         }
-       
+
         return true;
     }
 
@@ -122,12 +119,12 @@ class UserVoter extends Voter
     {
         if (!$this->tokenUser->isVerified()) {
             return false;
-         }
+        }
 
         if (!$this->security->isGranted('ROLE_ADMIN')) {
             return false;
         }
-       
+
         return true;
     }
 
@@ -135,7 +132,7 @@ class UserVoter extends Voter
     {
         if (!$this->tokenUser->isVerified()) {
             return false;
-         }
+        }
 
         if (!$this->security->isGranted('ROLE_ADMIN')) {
             return false;
@@ -148,7 +145,7 @@ class UserVoter extends Voter
     {
         if (!$this->tokenUser->isVerified()) {
             return false;
-         }
+        }
 
         if (!$this->security->isGranted('ROLE_ADMIN')) {
             return false;

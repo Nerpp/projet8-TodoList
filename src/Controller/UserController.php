@@ -11,7 +11,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-
 /**
  * @Route("/user")
  */
@@ -27,7 +26,7 @@ class UserController extends AbstractController
      */
     public function index(UserRepository $userRepository): Response
     {
-        if (!$this->isGranted('view_user',$this->getUser())) {
+        if (!$this->isGranted('view_user', $this->getUser())) {
             $this->addFlash('error', 'Vous n\'avez pas les droits nécéssaire pour visualiser cette page');
             return $this->redirectToRoute('default');
         }
@@ -44,7 +43,7 @@ class UserController extends AbstractController
      */
     public function new(Request $request): Response
     {
-        if (!$this->isGranted('create_user',$this->getUser())) {
+        if (!$this->isGranted('create_user', $this->getUser())) {
             $this->addFlash('error', 'Vous n\'avez pas les droits nécéssaire pour visualiser cette page');
             return $this->redirectToRoute('default');
         }
@@ -76,7 +75,7 @@ class UserController extends AbstractController
      */
     public function show(User $user): Response
     {
-        if (!$this->isGranted('view_user',$this->getUser())) {
+        if (!$this->isGranted('view_user', $this->getUser())) {
             $this->addFlash('error', 'Vous n\'avez pas les droits nécéssaire pour visualiser cette page');
             return $this->redirectToRoute('default');
         }
@@ -91,7 +90,7 @@ class UserController extends AbstractController
      */
     public function edit(Request $request, User $user): Response
     {
-        if (!$this->isGranted('edit_user',$this->getUser())) {
+        if (!$this->isGranted('edit_user', $this->getUser())) {
             $this->addFlash('error', 'Vous n\'avez pas les droits nécéssaire pour visualiser cette page');
             return $this->redirectToRoute('default');
         }
@@ -118,7 +117,7 @@ class UserController extends AbstractController
      */
     public function delete(Request $request, User $user): Response
     {
-        if (!$this->isGranted('delete_user',$this->getUser())) {
+        if (!$this->isGranted('delete_user', $this->getUser())) {
             $this->addFlash('error', 'Vous n\'avez pas les droits nécéssaire pour utiliser cette option');
             return $this->redirectToRoute('default');
         }
