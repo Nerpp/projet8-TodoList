@@ -1,76 +1,53 @@
-## Project Todo-List
+Contribue to the Project TODO-list 
 
-# Technical information
+Clone the Project
 
-the projet is build on :
-                        Symfony 5.3,
-                        PHP 7.4.9,
-                        Composer,
-                        PSR-4
+See the README.md
 
-The Css and JS are build with Webpack
+Add your contribution to the Project
 
-## How contribute to the project
+	You can modify it part as you wish, the codacy notation level must be between A and B.
+The final decision to add it, is up to me in the end.
 
-## Fork 
+Check the PSR-12 standard
 
-See GITHUB doc for detailed information : https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/about-forks
+	Its more easy to read your code if its standardized. For do so PHP_codeSniffer is installed by default, run the command 
 
-# Create a Fork
+vendor/bin/phpcs --standard=PSR12 src, in your terminal.
 
-On the GitHub page of the project up and right you will can see : Watch Star Fork.
-Click on Fork and let GitHub work.
-When GitHub will be done go on your GItHub page for see the project forked.
-
-# Sync your fork
-
-Install the fork on your local :
-
-Clone the project Forked from your repository
-
-For configure the fork
-
-```text
-git remote -v
-```
-
-add your fork to the original project
-
-```text
- git remote add upstream https://github.com/username/projet8-TodoList.git
-
- git fetch upstream
-```
-
-Upstream is a conventionnal name 
-
-Convention , create a specific branch named convention
-
-```text
- git checkout -b contribution upstream/master
-```
+For more information see the documentation PHP_codeSniffer.
 
 
+How do the pull request
 
-for keep your project Sync with the original project see the GitHub doc : https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork
+1)	Changing the branch range and destination repository
 
+By default, pull requests are based on the parent repository's default branch.
 
+If the default parent repository isn't correct, you can change both the parent repository and the branch with the drop-down lists. You can also swap your head and base branches with the drop-down lists to establish diffs between reference points. References here must be branch names in your GitHub repository.
 
+2)	Creating the pull request
 
+Create a pull request, use the gh pr create subcommand.
+gh pr create
 
-Clone
+Assign a pull request to me, use the --assignee or -a flags. Important set Your GitHub Displayname.
+gh pr create --assignee "@nerpp"
 
-Installer le projet voir read me
+Specify the branch into which you want the pull request merged, use the --base or -B flags. To specify the branch that contains commits for your pull request, use the --head or -H flags.
+gh pr create --base my-base-branch --head my-changed-branch
 
-créer des tests et faire en sorte qu'ils passent
+Include a title and body for the new pull request, use the --title and --body flags.
+gh pr create --title "The bug is fixed" --body "Everything works again"
 
-Standard psr-12 verifier que le code est bien formatté -> code sniffer
+Mark a pull request as a draft, use the --draft flag.
+gh pr create –draft
 
-comment faire la pull request nom issue {
-et codacy doit avoir la note A ou B}
+Add a labels or milestones to the new pull request, use the --label and --milestone flags
+gh pr create --label "bug,help wanted" --milestone octocat-milestone
 
-
-
+To add the new pull request to a specific project, use the --project flag.
+gh pr create --project projet8-TodoList
 
 
 
