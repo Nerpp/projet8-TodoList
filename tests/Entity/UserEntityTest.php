@@ -7,7 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 class UserEntityTest extends TestCase
 {
-
     public function testUserUnityEntity()
     {
         $user = new User();

@@ -7,7 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 class TaskEntityTest extends TestCase
 {
-
     public function testtaskUnityEntity()
     {
         $task = new Task();
