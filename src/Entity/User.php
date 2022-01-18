@@ -6,7 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -14,7 +13,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @UniqueEntity(fields={"displayName"}, message="Un utilisateur utilise deja ce nom d'affichage")
+ * @UniqueEntity(fields={"displayName"}, message="Un utilisateur utilise déjà ce nom d'affichage")
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -79,6 +78,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $displayName;
 
+    public function __construct()
+    {
+        $this->task = new ArrayCollection();
+    }
+
 // @codeCoverageIgnoreStart
     public function setUsername(string $username)
     {
@@ -91,10 +95,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
     // @codeCoverageIgnoreEnd
 
-    public function __construct()
-    {
-        $this->task = new ArrayCollection();
-    }
+   
 
     public function getId(): ?int
     {
