@@ -15,12 +15,12 @@
         {% endblock %}
     </head>
     <body>
-       <nav class="navbar navbar-expand-lg navbar-light navbar-fixed-top" style="background-color: #e3f2fd;" role="navigation">
-                 {% include '/navbar/navbar.html.twig' %}
-        </nav> 
 
+        <nav>
+            {% include '/navbar/navbar.html.twig' %}
+        </nav>
         <!-- Page Content -->
-        <div class="container">
+        <div class="container pt-5">
             <div class="row">
             {% if is_granted('create_user',app.user)  %}
                 <a href="{{ path('user_new') }}" class="btn btn-primary">Créer un utilisateur</a>
