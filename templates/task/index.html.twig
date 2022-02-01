@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Index Tâche
+{% endblock %}
+
+{% block header_title %}
+	<div class="container">
+		<div class="d-flex justify-content-center">
+			{% if app.request.pathinfo == "/task/ended" %}
+				<h1>Tâche terminé</h1>
+			{% else %}
+				<h1>Tâche non terminé</h1>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		{% if is_granted('create_task', app.user) %}
+		<div class="d-flex justify-content-end">
+			<a href="{{ path('task_new') }}">Créer une nouvelle tâche</a>
+		</div>
+		{% endif %}
+		{% for task in tasks %}
+			<div class="d-flex align-items-start pt-3">
+				<div class="col-3">
+					<div class="">
+						<strong>Utilisateur :
+						</strong>
+						{{ task.user.displayName }}
+					</div>
+					<div class="">
+						<strong>Tache :
+						</strong>
+						{{ task.title }}
+					</div>
+					<div class="">
+						<strong>Crée le :
+						</strong>
+						{{ task.createdAt ? task.createdAt|date('d-m-Y H:i') : '' }}
+					</div>
+					<div class="">
+						{% if task.isDone %}
+							<div class="text-success">
+								<strong>Terminé :
+								</strong>Oui
+							</div>
+						{% else %}
+							<div class="text-danger">
+								<strong>Terminé :
+								</strong>Non
+							</div>
+						{% endif %}
+					</div>
+					<div class="">
+						{% if is_granted('view_task',task) %}
+							<a href="{{ path('task_show', {'id': task.id}) }}">Afficher</a>
+						{% endif %}
+						{% if is_granted('delete_task',task) %}
+							<a href="{{ path('task_edit', {'id': task.id}) }}">Editer</a>
+						{% endif %}
+					</div>
+				</div>
+				<div class="">
+					{{ task.content }}
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}
+
+

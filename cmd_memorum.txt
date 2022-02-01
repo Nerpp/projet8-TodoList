@@ -1,0 +1,22 @@
+
+#Test unitaire :
+code coverage:
+php -d xdebug.mode=coverage bin/phpunit --coverage-html web\TestCoverage
+
+
+#Test entity
+
+tester controller par controller en indiquant test avant le nom du COntroller
+cmd : php bin/phpunit --filter testUserUnityEntity
+
+test complet
+cmd : php bin/phpunit --testdox
+
+pour creer un fichier de resultat de test complet
+php bin/phpunit --testdox > tests/UnityTestResults/ResultUnityTest.html
+
+
+ #php_sniffer :
+
+verification et correction psr-12
+vendor/bin/phpcs --standard=PSR12 src

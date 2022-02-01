@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register
+{% endblock %}
+
+{% block header_title %}
+	<div class="container">
+		<div class="d-flex justify-content-center">
+			<h1>Création Utilisateur</h1>
+		</div>
+	</div>
+{% endblock %}
+
+{% block body %}
+	{% for flashError in app.flashes('verify_email_error') %}
+		<div class="alert alert-danger" role="alert">{{ flashError }}</div>
+	{% endfor %}
+
+	<div class="container">
+		<div class="row">
+			{{ form_start(registrationForm) }}
+			<div class="d-flex flex-column align-items-center">
+				<div class="col-8 pt-2">
+					{{ form_label(registrationForm.displayName,'Nom d\'affichage') }}
+				</div>
+				<div class="col-8 text-danger">
+					{{ form_errors(registrationForm.displayName)}}
+				</div>
+				<div class="col-8">
+					{{ form_widget(registrationForm.displayName, {'attr': {'class': 'form-control'}}) }}
+				</div>
+				<div class="col-8 pt-2">
+					{{ form_label(registrationForm.email) }}
+				</div>
+				<div class="col-8 text-danger">
+					{{ form_errors(registrationForm.email)}}
+				</div>
+				<div class="col-8">
+					{{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+				</div>
+
+				<div class="col-8 pt-2">
+					{{ form_label(registrationForm.roles,'Choisissez votre Role') }}
+				</div>
+				<div class="col-8 text-danger">
+					{{ form_errors(registrationForm.roles)}}
+				</div>
+				<div class="col-8">
+					{{ form_widget(registrationForm.roles, {'attr': {'class': 'form-control'}}) }}
+				</div>
+
+				<div class="col-8 pt-2">
+					{{ form_label(registrationForm.password.first,'Mot de passe') }}
+				</div>
+				<div class="col-8 text-danger">
+					{{ form_errors(registrationForm.password.first)}}
+				</div>
+				<div class="col-8">
+					{{ form_widget(registrationForm.password.first, {'attr': {'class': 'form-control'}}) }}
+				</div>
+
+				<div class="col-8 pt-2">
+					{{ form_label(registrationForm.password.second,'Confirmation de votre mot de passe') }}
+				</div>
+				<div class="col-8 text-danger">
+					{{ form_errors(registrationForm.password.first)}}
+				</div>
+				<div class="col-8">
+					{{ form_widget(registrationForm.password.second, {'attr': {'class': 'form-control'}}) }}
+				</div>
+				<div class="text-center p-4">
+					<button class="btn bg-success">{{ button_label|default('Enregistrement') }}</button>
+				</div>
+			</div>
+			{{ form_end(registrationForm) }}
+		</div>
+	</div>
+{% endblock %}

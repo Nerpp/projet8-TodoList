@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails Utilisateur
+{% endblock %}
+
+{% block header_title %}
+	<div class="container">
+		<div class="d-flex justify-content-center">
+			<h1>Visualiser l'utilisateur</h1>
+		</div>
+	</div>
+{% endblock %}
+
+{% block body %}
+
+	<div class="container">
+		<div class="d-flex flex-column align-items-center">
+			<div class="">
+				<h1>{{ user.displayName }}</h1>
+			</div>
+			<div class="">
+				{{ user.roles ? user.roles|json_encode : '' }}
+			</div>
+			<div class="">
+				{{ user.email }}
+			</div>
+		</div>
+	</div>
+
+	<div class="container pt-4">
+		<div class="d-flex flex-row justify-content-around">
+			<div class="">
+				<a href="{{ path('user_index') }}">Retour à l'index utilisateur</a>
+			</div>
+			{% if is_granted('edit_user',app.user) %}
+			<div class="">
+				<a href="{{ path('user_edit', {'id': user.id}) }}">Editer</a>
+			</div>
+			{% endif %}
+			{% if is_granted('delete_user',app.user) %}
+			<div class="bg-warning">
+				{{ include('user/_delete_form.html.twig') }}
+			</div>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}
+

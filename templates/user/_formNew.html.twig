@@ -1,0 +1,58 @@
+<div class="container">
+	<div class="row">
+		{{ form_start(form) }}
+		<div class="d-flex flex-column align-items-center">
+			<div class="col-8 pt-2">
+				{{ form_label(form.displayName, 'Nom utilisateur') }}
+			</div>
+			<div class="col-8 text-danger">
+				{{ form_errors(form.displayName)}}
+			</div>
+			<div class="col-8">
+				{{ form_widget(form.displayName, {'attr': {'class': 'form-control'}}) }}
+			</div>
+			<div class="col-8 pt-2">
+				{{ form_label(form.email) }}
+			</div>
+			<div class="col-8 text-danger">
+				{{ form_errors(form.email)}}
+			</div>
+			<div class="col-8">
+				{{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+			</div>
+			<div class="col-8 pt-2">
+				{{ form_label(form.roles) }}
+			</div>
+			<div class="col-8">
+				{{ form_errors(form.roles)}}
+			</div>
+			<div class="col-8">
+				{{ form_widget(form.roles, {'attr': {'class': 'form-control'}}) }}
+			</div>
+			<div class="col-8 pt-2">
+				{{ form_label(form.password.first, 'Mot de passse') }}
+			</div>
+			<div class="col-8 text-danger">
+				{{ form_errors(form.password.first)}}
+			</div>
+			<div class="col-8">
+				{{ form_widget(form.password.first, {'attr': {'class': 'form-control'}}) }}
+			</div>
+			<div class="col-8 pt-2">
+				{{ form_label(form.password.second,'Confirmer votre mot de passe') }}
+			</div>
+			<div class="col-8 text-danger">
+				{{ form_errors(form.password.first)}}
+			</div>
+			<div class="col-8">
+				{{ form_widget(form.password.second, {'attr': {'class': 'form-control'}}) }}
+			</div>
+			<div class="text-center p-4">
+				<button class="btn bg-success">{{ button_label|default('Enregistrer') }}</button>
+				 <input type="hidden" name="_token" value="{{ csrf_token('user_new') }}">
+			</div>
+		</div>
+		{{ form_end(form) }}
+	</div>
+</div>
+

@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle Tâche{% endblock %}
+
+{% block header_title %}
+	<div class="container">
+		<div class="d-flex justify-content-center">
+			<h1>Créer une nouvelle tache</h1>
+		</div>
+	</div>
+{% endblock %}
+
+{% block body %}
+   
+    {{ include('task/_form.html.twig') }}
+
+    <a href="{{ path('default') }}">retour accueil</a>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateur index
+{% endblock %}
+
+
+{% block header_title %}
+	<div class="container">
+		<div class="d-flex justify-content-center">
+			<h1>Liste des Utilisateurs</h1>
+		</div>
+	</div>
+{% endblock %}
+
+{% block body %}
+
+	<div class="container">
+	{# {% if is_granted('create_user',app.user) %} #}
+		<div class="">
+			<a href="{{ path('user_new') }}">Créer nouvel utilisateur</a>
+		</div>
+	</div>
+	{# {% endif %} #}
+	<div class="container pt-3">
+		<div class="d-flex flex-row flex-wrap justify-content-around">
+			{% for user in users %}
+            <div class="p-2">
+				<div class="card" style="width: 18rem;">
+					<div class="card-body">
+						<h5 class="card-title">{{ user.displayName }}</h5>
+						<p class="card-text">{{ user.email }}</p>
+						{% if is_granted('view_user',app.user) %}
+						<a href="{{ path('user_show', {'id': user.id}) }}" class="card-link">Afficher</a>
+						{% endif %}
+						{% if is_granted('edit_user',app.user) %}
+							<a href="{{ path('user_edit', {'id': user.id}) }}" class="card-link">Editer</a>
+						{% endif %}
+					</div>
+				</div>
+            </div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}
+
