@@ -14,7 +14,7 @@
 
 {% block body %}
 	<form method="post">
-		<div class="d-flex flex-column align-items-center">
+		<div class="d-flex flex-column align-items-center d-grid gap-3">
 			<div class="col-8">
 				{% if error %}
 					<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
