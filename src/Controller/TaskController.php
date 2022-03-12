@@ -22,6 +22,8 @@ class TaskController extends AbstractController
     public function index_todo(TaskRepository $taskRepository): Response
     {
 
+       
+        
         if (!$this->isGranted('browser_user', $this->getUser())) {
             $this->addFlash('error', 'Vous n\'avez pas les droits nécéssaire pour visualiser cette page');
             return $this->redirectToRoute('app_login');
