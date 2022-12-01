@@ -15,7 +15,12 @@ pour creer un fichier de resultat de test complet
 php bin/phpunit --testdox > tests/UnityTestResults/ResultUnityTest.html
 
  #php_sniffer :
-verification et correction psr-12
-vendor/bin/phpcs --standard=PSR12 src
+verification
+phpcs src --standard=PSR12
+
+correction psr-12
+phpcbf src --standard=PSR12
+
+
 
 composer require symfony/apache-pack
